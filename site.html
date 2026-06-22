@@ -345,17 +345,18 @@
     nav.links.open{display:flex}
     nav.links a{padding:14px var(--pad)}
     .hero{min-height:100svh;align-items:flex-start;padding-top:66px}
-    .hero .wrap{padding-block:54px 96px;display:flex;flex-direction:column}
+    .hero .wrap{padding-block:46px 132px;display:flex;flex-direction:column}
     .hero h1{display:block;font-size:2.05rem;line-height:1.05;max-width:330px;margin-top:12px}
+    .hero h1::after{content:"";display:block;width:60px;height:3px;background:var(--magenta);border-radius:2px;margin-top:16px}
     .hero .lede{margin-top:16px;font-size:1rem;line-height:1.45;max-width:330px}
     .hbook{display:none}
-    .hero-price{margin-top:22px;order:1}
+    .hero-cta{display:flex;order:0}
+    .hero-price{margin-top:22px;order:2}
     .hero-price .pf{font-size:.58rem}
     .hero-price .pn{font-size:2.1rem}
     .hero-price .pp{font-size:.72rem}
-    .hero-usp{margin-top:20px;display:grid;grid-template-columns:1fr;gap:8px;font-size:.9rem;order:2}
-    .hero-usp span:nth-child(n+4){display:none}
-    body{padding-bottom:62px}
+    .hero-usp{margin-top:18px;display:grid;grid-template-columns:1fr;gap:9px;font-size:.9rem;order:1}
+    body{padding-bottom:132px}
     .burger{display:block}.head-book{display:none}
     .bk::after{background:linear-gradient(90deg,rgba(20,16,14,.84) 0%,rgba(20,16,14,.46) 46%,rgba(20,16,14,.1) 100%)}
     .q-grid{grid-template-columns:1fr}
@@ -363,11 +364,15 @@
     .why .grid{grid-template-columns:1fr}
     .why ul{grid-template-columns:1fr}
     .quotes{grid-template-columns:1fr}
-    .mbook{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--ink);color:#fff;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;box-shadow:0 -10px 30px -18px rgba(0,0,0,.6)}
-    .mbook .p{font-family:var(--mono);font-size:.78rem;color:rgba(255,255,255,.85)}
-    .mbook .p b{color:#fff;font-size:1.02rem}
-    .mbook a{background:var(--magenta);color:#fff;font-weight:700;padding:11px 22px;border-radius:2px;font-size:.86rem;white-space:nowrap}
-    body{padding-bottom:62px}
+    .mbook{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--paper);border-top:1px solid var(--line);box-shadow:0 -14px 34px -20px rgba(0,0,0,.45)}
+    .mbw{display:flex;align-items:stretch;padding:9px 10px}
+    .mbf{flex:1;display:flex;flex-direction:column;gap:2px;padding:3px 9px;border-right:1px solid var(--line);min-width:0}
+    .mbf:last-of-type{border-right:0}
+    .mbf span{font-family:var(--mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--stone)}
+    .mbf input,.mbf select{border:0;background:none;font-family:var(--body);font-size:.82rem;font-weight:600;color:var(--ink);width:100%}
+    .mbgo{flex:0 0 auto;width:48px;display:flex;align-items:center;justify-content:center;background:var(--magenta);color:#fff;font-size:1.35rem;border-radius:4px;margin-left:8px;text-decoration:none}
+    .mbtrust{display:flex;justify-content:center;gap:16px;padding:7px 10px;border-top:1px solid var(--line);background:var(--paper-2);font-family:var(--mono);font-size:.55rem;letter-spacing:.03em;color:var(--ink-soft);flex-wrap:wrap}
+    .mbtrust span{display:inline-flex;align-items:center;gap:4px}
   }
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
   :focus-visible{outline:2px solid var(--magenta);outline-offset:3px}
@@ -853,6 +858,8 @@ const I18N = {
 };
 Object.assign(I18N.fr,{"acc.foot":"À pied","acc.gl":"Gare de Lyon","acc.glv":"4 min","acc.cv":"Coulée verte","acc.cvv":"au pied de l\u2019hôtel","acc.ba":"Bastille","acc.bav":"8 min","acc.al":"Marché d\u2019Aligre","acc.alv":"8 min","acc.from":"Depuis la Gare de Lyon","acc.rer":"RER A direct","acc.rerv":"Disneyland · La Défense","acc.m14":"Métro 14 direct","acc.m14v":"Aéroport d\u2019Orly","acc.tgv":"TGV","acc.tgvv":"Lyon · Marseille · le Sud","rev.sub":"Avis vérifiés de nos voyageurs sur Google et Booking.com.","rev.q1.t":"« Propre, neuf, tout disponible. Petit-déjeuner super. Calme. »","rev.q1.w":"Michel · Booking","rev.q2.t":"« Personnel très sympathique et arrangeant, hôtel refait, très propre. »","rev.q2.w":"Voyageur · Booking","rev.q3.t":"« Emplacement idéal près de la gare, quartier calme près de la coulée verte. »","rev.q3.w":"Voyageur · Booking","rev.sources":"Avis vérifiés sur <b>Google</b> et <b>Booking.com</b><br>Plus de <b>2 500 voyageurs</b> accueillis depuis la rénovation","hero.priceFrom":"À partir de","hero.priceNum":"119 €","hero.priceNight":"/ nuit","hero.usp":"<span>Hôtel entièrement rénové</span><span>Meilleur tarif garanti</span><span>Réception 24h/24</span><span>Petit-déjeuner maison</span><span>Annulation flexible</span>","wid.arr":"Arrivée","wid.dep":"Départ","wid.guests":"Voyageurs","wid.go":"Vérifier les disponibilités","wid.bookm":"Réserver maintenant"});
 Object.assign(I18N.en,{"acc.foot":"On foot","acc.gl":"Gare de Lyon","acc.glv":"4 min","acc.cv":"Coulée verte","acc.cvv":"at the doorstep","acc.ba":"Bastille","acc.bav":"8 min","acc.al":"Aligre Market","acc.alv":"8 min","acc.from":"From Gare de Lyon","acc.rer":"RER A direct","acc.rerv":"Disneyland · La Défense","acc.m14":"Metro 14 direct","acc.m14v":"Orly Airport","acc.tgv":"TGV","acc.tgvv":"Lyon · Marseille · the South","rev.sub":"Verified reviews from our guests on Google and Booking.com.","rev.q1.t":"\u201cClean, brand-new, everything available. Great breakfast. Quiet.\u201d","rev.q1.w":"Michel · Booking","rev.q2.t":"\u201cVery friendly and accommodating staff, renovated hotel, spotless.\u201d","rev.q2.w":"Guest · Booking","rev.q3.t":"\u201cGreat location near the station, quiet area by the Coulée verte.\u201d","rev.q3.w":"Guest · Booking","rev.sources":"Verified on <b>Google</b> and <b>Booking.com</b><br>Over <b>2,500 travellers</b> welcomed since the renovation","hero.priceFrom":"From","hero.priceNum":"€119","hero.priceNight":"/ night","hero.usp":"<span>Fully renovated hotel</span><span>Best rate guaranteed</span><span>24/7 reception</span><span>Homemade breakfast</span><span>Flexible cancellation</span>","wid.arr":"Check-in","wid.dep":"Check-out","wid.guests":"Guests","wid.go":"Check availability","wid.bookm":"Book now"});
+Object.assign(I18N.fr,{"mbk.t1":"Site officiel","mbk.t2":"Meilleur tarif garanti","mbk.t3":"Paiement sécurisé"});
+Object.assign(I18N.en,{"mbk.t1":"Official site","mbk.t2":"Best rate guaranteed","mbk.t3":"Secure payment"});
 (function applyConfig(){
   var f=I18N.fr, e=I18N.en, C=CONFIG;
   f["promo.txt"]=C.promo.fr;        e["promo.txt"]=C.promo.en;
@@ -915,11 +922,16 @@ if(window.L && document.getElementById("map")){
 }
 </script>
 <div class="mbook">
-  <span class="p" data-i18n-html="mbook.from">Chambres <b>dès 119 €</b></span>
-  <a id="book-mobile" href="#" target="_blank" rel="noopener" data-i18n="mbook.btn">Réserver</a>
+  <div class="mbw">
+    <label class="mbf"><span data-i18n="wid.arr">Arrivée</span><input type="date" id="mw-arr" aria-label="Arrivée"></label>
+    <label class="mbf"><span data-i18n="wid.dep">Départ</span><input type="date" id="mw-dep" aria-label="Départ"></label>
+    <label class="mbf"><span data-i18n="wid.guests">Voyageurs</span><select id="mw-guests" aria-label="Voyageurs"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>
+    <a class="mbgo" id="book-mobile" href="#" target="_blank" rel="noopener" aria-label="Réserver">→</a>
+  </div>
+  <div class="mbtrust"><span data-i18n="mbk.t1">Site officiel</span><span data-i18n="mbk.t2">Meilleur tarif garanti</span><span data-i18n="mbk.t3">Paiement sécurisé</span></div>
 </div>
 <script>
-(function(){var p=function(n){return String(n).padStart(2,"0")};var f=function(d){return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())};var t=new Date(),m=new Date(Date.now()+864e5);var a=document.getElementById("w-arr"),d=document.getElementById("w-dep");if(a){a.value=f(t);a.min=f(t);}if(d){d.value=f(m);d.min=f(m);}})();
+(function(){var p=function(n){return String(n).padStart(2,"0")};var f=function(d){return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())};var t=new Date(),m=new Date(Date.now()+864e5);[["w-arr",t],["mw-arr",t]].forEach(function(x){var e=document.getElementById(x[0]);if(e){e.value=f(x[1]);e.min=f(t);}});[["w-dep",m],["mw-dep",m]].forEach(function(x){var e=document.getElementById(x[0]);if(e){e.value=f(x[1]);e.min=f(m);}});})();
 </script>
 <script>
 (function(){
