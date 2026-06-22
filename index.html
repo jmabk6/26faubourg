@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title data-i18n="meta.title">Hôtel 26 Faubourg — Hôtel 3 étoiles, Paris 12e</title>
+<meta name="description" data-i18n="meta.desc" data-i18n-attr="content" content="Hôtel 3 étoiles entièrement rénové dans le 12e, à deux pas de la Gare de Lyon, de Bastille et de la coulée verte.">
+<link rel="canonical" href="https://www.26faubourg.com/">
+<link rel="alternate" hreflang="fr" href="https://www.26faubourg.com/">
+<link rel="alternate" hreflang="en" href="https://www.26faubourg.com/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://www.26faubourg.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hôtel 26 Faubourg">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="Hôtel 26 Faubourg — Hôtel 3 étoiles, Paris 12e">
+<meta property="og:description" content="Hôtel 3 étoiles entièrement rénové, à 4 minutes à pied de la Gare de Lyon. Meilleur tarif garanti en réservant en direct.">
+<meta property="og:url" content="https://www.26faubourg.com/">
+<meta property="og:image" content="https://www.26faubourg.com/images/hero1.jpg">
+<meta property="og:image:width" content="1300">
+<meta property="og:image:height" content="866">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hôtel 26 Faubourg — Hôtel 3 étoiles, Paris 12e">
+<meta name="twitter:description" content="Hôtel 3 étoiles rénové, à 4 minutes de la Gare de Lyon. Meilleur tarif garanti en direct.">
+<meta name="twitter:image" content="https://www.26faubourg.com/images/hero1.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Hotel",
+  "name": "Hôtel 26 Faubourg",
+  "description": "Hôtel 3 étoiles entièrement rénové dans le 12e arrondissement de Paris, à 4 minutes à pied de la Gare de Lyon.",
+  "url": "https://www.26faubourg.com/",
+  "image": "https://www.26faubourg.com/images/hero1.jpg",
+  "telephone": "+33143074618",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "26 rue Hector Malot",
+    "addressLocality": "Paris",
+    "postalCode": "75012",
+    "addressCountry": "FR"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 48.8466, "longitude": 2.3796 },
+  "starRating": { "@type": "Rating", "ratingValue": "3" },
+  "priceRange": "€€",
+  "currenciesAccepted": "EUR"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1613; --ink-2:#2A2420; --ink-soft:#5B524A;
+    --paper:#F5F1EA; --paper-2:#EBE5DA; --line:rgba(26,22,19,.13);
+    --magenta:#B81E92; --magenta-deep:#7F0F63;
+    --green:#36432F; --brass:#B4842C; --stone:#9B8E7C;
+    --maxw:1280px; --pad:clamp(20px,5vw,64px);
+    --disp:"Bricolage Grotesque",sans-serif; --body:"Inter",sans-serif; --mono:"Space Mono",monospace;
+    --shadow:0 30px 70px -30px rgba(26,22,19,.45);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--magenta);display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;border:1.5px solid var(--magenta)}
+  h1,h2,h3{font-family:var(--disp);font-weight:600;line-height:1.04;letter-spacing:-.02em}
+  em{font-style:normal;color:var(--magenta)}
+
+  /* HEADER */
+  header{position:fixed;inset:0 0 auto;z-index:50;background:rgba(245,241,234,.86);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+  header.scrolled{border-color:var(--line);box-shadow:0 8px 30px -22px rgba(26,22,19,.6)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .brand{display:flex;align-items:center}
+  .brand img{height:36px;width:auto;display:block}
+  nav.links{display:flex;gap:30px;font-size:.84rem;font-weight:500}
+  nav.links a{position:relative;padding:4px 0;color:var(--ink-soft);transition:color .2s}
+  nav.links a:hover{color:var(--ink)}
+  nav.links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1.5px;background:var(--magenta);transition:width .25s}
+  nav.links a:hover::after{width:100%}
+  .head-right{display:flex;align-items:center;gap:18px}
+  .lang{display:flex;gap:2px;font-family:var(--mono);font-size:.72rem}
+  .lang button{background:none;border:none;cursor:pointer;color:var(--ink-soft);padding:4px 6px;letter-spacing:.05em}
+  .lang button[aria-pressed="true"]{color:var(--ink);font-weight:700;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--magenta)}
+  .book{font-family:var(--body);font-weight:600;font-size:.82rem;background:var(--magenta);color:#fff;padding:11px 22px;border-radius:2px;transition:background .2s,transform .2s}
+  .book:hover{background:var(--magenta-deep);transform:translateY(-1px)}
+  .burger{display:none;background:none;border:none;cursor:pointer;width:30px;height:22px;position:relative}
+  .burger span{position:absolute;left:0;width:100%;height:2px;background:var(--ink);transition:.3s}
+  .burger span:nth-child(1){top:0}.burger span:nth-child(2){top:10px}.burger span:nth-child(3){top:20px}
+
+  /* HERO */
+  .hero{position:relative;min-height:92svh;display:flex;align-items:flex-end;color:#fff}
+  .hero::before{content:"";position:absolute;inset:0;background:#1A1613;z-index:-3}
+  .hero-slides{position:absolute;inset:0;z-index:-2}
+  .hero-slide{position:absolute;inset:0;background:#1A1613 center/cover no-repeat;opacity:0;transition:opacity 1.6s ease}
+  .hero-slide.is-active{opacity:1}
+  .hero-dots{position:absolute;z-index:6;right:clamp(20px,5vw,64px);bottom:clamp(22px,5vh,46px);display:flex;gap:16px}
+  .hero-dots button{width:12px;height:12px;border-radius:50%;border:1.5px solid rgba(255,255,255,.75);background:transparent;cursor:pointer;padding:0;transition:.2s}
+  .hero-dots button:hover{border-color:#fff}
+  .hero-dots button[aria-current="true"]{background:var(--magenta);border-color:var(--magenta)}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,14,.32) 0%,rgba(20,16,14,.08) 26%,rgba(20,16,14,.32) 60%,rgba(20,16,14,.6) 100%),linear-gradient(90deg,rgba(20,16,14,.42) 0%,rgba(20,16,14,0) 55%);z-index:-1}
+  .hero .wrap{padding-block:0 clamp(96px,14vh,156px);width:100%}
+  .hero .eyebrow{color:#fff}
+  .hero .eyebrow::before{border-color:#fff}
+  .hero h1{font-size:clamp(1.55rem,3.4vw,2.7rem);font-weight:600;margin:18px 0 0;max-width:680px;line-height:1.08;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+  .hero h1 em{color:#fff;font-style:italic;font-weight:500}
+  .hero .lede{margin-top:22px;max-width:560px;font-size:clamp(1rem,1.5vw,1.18rem);color:rgba(255,255,255,.9)}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:22px}
+  .hero .btn-ghost{border-color:rgba(255,255,255,.85);background:rgba(255,255,255,.10);backdrop-filter:blur(2px)}
+  .hero .btn-ghost:hover{background:#fff;color:var(--ink);border-color:#fff}
+  .btn-solid{background:var(--magenta);color:#fff;font-weight:600;font-size:.92rem;padding:15px 30px;border-radius:2px;transition:background .2s,transform .2s}
+  .btn-solid:hover{background:var(--magenta-deep);transform:translateY(-2px)}
+  .btn-ghost{border:1px solid rgba(255,255,255,.55);color:#fff;font-weight:600;font-size:.92rem;padding:15px 30px;border-radius:2px;transition:.2s}
+  .btn-ghost:hover{background:#fff;color:var(--ink);border-color:#fff}
+  .stars{font-size:.9em;letter-spacing:.1em}
+
+  section{position:relative}
+  .pad{padding-block:clamp(72px,11vw,140px)}
+
+  /* INTRO */
+  .intro{background:var(--paper)}
+  .intro .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,6vw,86px);align-items:center}
+  .intro h2{font-size:clamp(1.9rem,3.6vw,3.1rem);margin:18px 0 0}
+  .intro .body{color:var(--ink-soft);font-size:1.04rem}
+  .intro .body p{margin-top:18px}
+  .intro figure{position:relative}
+  .intro figure img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:3px;box-shadow:var(--shadow)}
+  .intro figure figcaption{position:absolute;left:-1px;bottom:18px;background:var(--paper);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);padding:8px 14px;border-left:2px solid var(--magenta)}
+
+  /* ROOMS */
+  .rooms{background:var(--paper-2)}
+  .rooms .head{max-width:760px;margin-bottom:clamp(34px,5vw,60px)}
+  .rooms .head h2{font-size:clamp(2rem,4.4vw,3.6rem);margin-top:16px}
+  .feature{position:relative;border-radius:3px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:24px}
+  .feature img{width:100%;height:clamp(360px,52vw,620px);object-fit:cover;transition:transform .9s ease}
+  .feature:hover img{transform:scale(1.04)}
+  .feature .cap{position:absolute;left:0;bottom:0;right:0;padding:clamp(26px,4vw,48px);background:linear-gradient(transparent,rgba(20,16,14,.82));color:#fff;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .feature .cap .lab{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+  .feature .cap h3{font-size:clamp(1.6rem,3vw,2.4rem);color:#fff;margin-top:8px}
+  .feature .cap p{max-width:42ch;color:rgba(255,255,255,.85);font-size:.96rem;margin-top:6px}
+  .feature .cap .go{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;border-bottom:1.5px solid var(--magenta);padding-bottom:3px;white-space:nowrap}
+  .room-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .rcard{background:var(--paper);border-radius:3px;overflow:hidden;box-shadow:0 14px 34px -26px rgba(26,22,19,.5);transition:transform .3s,box-shadow .3s}
+  .rcard:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .rcard img{width:100%;aspect-ratio:3/2;object-fit:cover}
+  .rcard .b{padding:24px 26px 28px;display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+  .rcard .lab{font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta)}
+  .rcard h3{font-size:1.4rem;margin-top:4px}
+  .rcard p{font-size:.9rem;color:var(--ink-soft);margin-top:6px;max-width:34ch}
+  .rcard .go{font-family:var(--mono);font-size:1.1rem;color:var(--ink-soft);transition:transform .25s,color .2s}
+  .rcard:hover .go{transform:translateX(5px);color:var(--magenta)}
+
+  /* BREAKFAST — bande sombre plein cadre */
+  .bk{position:relative;color:#fff;display:flex;align-items:center;min-height:clamp(440px,72vh,720px)}
+  .bk::before{content:"";position:absolute;inset:0;background:#1A1613 url('images/breakfast-room.jpg') center/cover;z-index:-2}
+  .bk::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,16,14,.86) 0%,rgba(20,16,14,.6) 42%,rgba(20,16,14,.15) 100%);z-index:-1}
+  .bk .panel{max-width:560px}
+  .bk .eyebrow{color:var(--brass)}
+  .bk .eyebrow::before{border-color:var(--brass)}
+  .bk h2{font-size:clamp(2rem,4vw,3.3rem);color:#fff;margin:18px 0 18px}
+  .bk h2 em{color:#fff;font-style:italic;font-weight:500;border-bottom:3px solid var(--magenta);padding-bottom:2px}
+  .bk p{color:rgba(255,255,255,.86);font-size:1.05rem;max-width:48ch}
+  .bk .meta{margin-top:26px;font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);display:flex;gap:22px;flex-wrap:wrap}
+
+  /* QUARTIER */
+  .quartier{background:var(--paper)}
+  .quartier .head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(28px,4vw,48px);flex-wrap:wrap}
+  .quartier .head h2{font-size:clamp(1.9rem,4vw,3.2rem);margin-top:14px}
+  .quartier .head p{color:var(--ink-soft);max-width:38ch;font-size:.98rem}
+  .access{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,40px);margin-top:26px;background:var(--paper-2);border:1px solid var(--line);border-radius:3px;padding:clamp(24px,3vw,38px) clamp(22px,4vw,44px)}
+  .access h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--magenta);margin-bottom:12px}
+  .access ul{list-style:none}
+  .access li{display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.96rem}
+  .access li:last-child{border-bottom:0}
+  .access li b{font-weight:600}
+  .access li .v{margin-left:auto;font-family:var(--mono);font-size:.78rem;letter-spacing:.02em;color:var(--ink-soft);text-align:right}
+  @media(max-width:760px){.access{grid-template-columns:1fr;gap:8px}}
+  .q-grid{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:18px}
+  .q-item{position:relative;border-radius:3px;overflow:hidden;background:#1A1613;box-shadow:var(--shadow)}
+  .q-item img{width:100%;height:100%;min-height:340px;object-fit:cover;transition:transform .8s}
+  .q-item:hover img{transform:scale(1.06)}
+  .q-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:38px 18px 16px;color:#fff;font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(transparent,rgba(20,16,14,.8))}
+  .q-item figcaption b{display:block;font-family:var(--disp);font-size:1.05rem;letter-spacing:0;text-transform:none;font-weight:600;margin-bottom:2px}
+
+  /* OFFERS */
+  .offers{background:var(--ink);color:var(--paper)}
+  .offers .head{max-width:680px;margin-bottom:clamp(34px,5vw,56px)}
+  .offers .eyebrow{color:var(--brass)}
+  .offers .eyebrow::before{border-color:var(--brass)}
+  .offers h2{font-size:clamp(2rem,4vw,3.3rem);color:#fff;margin-top:16px}
+  .offers h2 em{color:#fff;font-style:italic;font-weight:500;text-decoration:underline;text-decoration-color:var(--magenta);text-underline-offset:6px}
+  .off-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid rgba(255,255,255,.16)}
+  .off{padding:38px 30px 40px;border-bottom:1px solid rgba(255,255,255,.16);border-right:1px solid rgba(255,255,255,.16)}
+  .off:nth-child(3n){border-right:none}
+  .off .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)}
+  .off h3{font-size:1.6rem;color:#fff;margin:12px 0 12px}
+  .off p{color:rgba(245,241,234,.66);font-size:.94rem;margin-bottom:22px}
+  .off a{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;border-bottom:1.5px solid var(--magenta);padding-bottom:3px}
+
+  /* FOOTER */
+  footer{background:var(--ink-2);color:var(--paper);padding-block:clamp(56px,8vw,90px) 34px}
+  .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:46px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.14)}
+  .foot-brand .mark{height:48px;width:auto;display:block}
+  .foot-brand p{margin-top:16px;color:rgba(245,241,234,.6);max-width:34ch;font-size:.94rem}
+  footer h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+  footer .col a,footer .col p{display:block;color:rgba(245,241,234,.78);font-size:.94rem;margin-bottom:9px}
+  footer .col a:hover{color:#fff}
+  .foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:24px;font-size:.78rem;color:rgba(245,241,234,.5)}
+
+  .rev-sources{margin-top:36px;line-height:1.9;text-align:center;font-family:var(--mono);font-size:.82rem;letter-spacing:.04em;color:var(--ink-soft)}
+  .rev-sources b{color:var(--ink)}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* === Conversion blocks === */
+  .factbar{background:var(--ink);color:var(--paper)}
+  .factbar .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px 28px;padding-block:18px}
+  .factbar .f{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;color:rgba(245,241,234,.92)}
+  .factbar .f::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brass);flex:none}
+  .hero-price{margin-top:20px;display:flex;flex-direction:column;gap:2px}
+  .hero-price .pf{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+  .hero-price .prow{display:flex;align-items:baseline;gap:9px}
+  .hero-price .pn{font-family:var(--disp);font-size:2.7rem;font-weight:700;color:#fff;line-height:1;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+  .hero-price .pp{font-family:var(--mono);font-size:.82rem;color:rgba(255,255,255,.85)}
+  .hero-price b{color:#fff;font-size:1.05rem}
+
+  .rcard .b{padding:24px 26px 28px;display:block}
+  .rcard .row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+  .rcard .price{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);white-space:nowrap}
+  .rcard .price b{color:var(--magenta);font-size:1rem}
+  .rcard h3{margin-top:6px}
+  .rcard .specs{margin-top:14px;font-family:var(--mono);font-size:.68rem;letter-spacing:.03em;color:var(--ink-soft);line-height:1.7}
+  .feature .cap .price{font-family:var(--mono);font-size:.82rem;color:#fff;margin-top:10px}
+  .feature .cap .price b{font-size:1.05rem}
+  .feature .cap .specs{font-family:var(--mono);font-size:.7rem;color:rgba(255,255,255,.75);margin-top:8px;letter-spacing:.03em}
+
+  .why{background:var(--paper)}
+  .why .grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(30px,5vw,72px);align-items:center}
+  .why h2{font-size:clamp(1.9rem,3.6vw,3rem);margin-top:16px}
+  .why .lead{color:var(--ink-soft);margin-top:16px;font-size:1.04rem}
+  .why .cta-row{margin-top:28px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .why .cta-row .gtee{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+  .why ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:16px 26px}
+  .why li{display:flex;gap:12px;align-items:flex-start;font-size:1rem}
+  .why li .ck{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:rgba(184,30,146,.12);color:var(--magenta);font-size:.74rem;font-weight:700;flex:none;margin-top:1px}
+
+  .reviews{background:var(--paper-2)}
+  .reviews .head{text-align:center;max-width:680px;margin:0 auto clamp(30px,4vw,46px)}
+  .reviews .head h2{font-size:clamp(1.9rem,3.6vw,3rem);margin-top:14px}
+  .reviews .head .eyebrow{justify-content:center}
+  .reviews .sub{color:var(--ink-soft);margin-top:12px}
+  .badges{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-bottom:clamp(32px,4vw,46px)}
+  .badge{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:18px 28px;text-align:center;min-width:148px}
+  .badge .src{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+  .badge .score{font-family:var(--disp);font-size:1.85rem;font-weight:700;margin:5px 0 2px;letter-spacing:-.02em}
+  .badge .score b{color:var(--magenta)}
+  .badge .cnt{font-size:.76rem;color:var(--ink-soft)}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .quote{background:var(--paper);border-radius:4px;padding:28px 26px;box-shadow:0 14px 34px -28px rgba(26,22,19,.5)}
+  .quote .qstars{color:var(--brass);font-size:.86rem;letter-spacing:.12em}
+  .quote p{margin:12px 0 16px;font-size:.98rem}
+  .quote .who{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;color:var(--magenta)}
+
+  .ctaband{background:var(--magenta);color:#fff}
+  .ctaband .wrap{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;padding-block:clamp(34px,5vw,58px)}
+  .ctaband h2{color:#fff;font-size:clamp(1.6rem,3vw,2.4rem)}
+  .ctaband p{color:rgba(255,255,255,.88);margin-top:8px;font-family:var(--mono);font-size:.78rem;letter-spacing:.05em}
+  .ctaband a{background:#fff;color:var(--magenta);font-weight:700;padding:16px 34px;border-radius:2px;font-size:.95rem;transition:transform .2s}
+  .ctaband a:hover{transform:translateY(-2px)}
+
+  .mbook{display:none}
+
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
+  .chips span{font-family:var(--mono);font-size:.63rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:5px 9px}
+  .feature .cap .chips{margin-top:12px}
+  .feature .cap .chips span{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.28);color:#fff}
+  .hero-trust{margin-top:18px;max-width:560px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;font-family:var(--mono);font-size:.98rem;letter-spacing:.02em;color:#fff}
+  .hero-trust .st{color:#F4C753;letter-spacing:.1em}
+  .hero-trust b{color:#fff;font-size:1.05em}
+  .hero-trust .st{font-size:1.05em}
+  .rcard .row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+
+  /* promo + map + badge stars */
+  .promo{background:var(--paper-2);border-bottom:1px solid var(--line)}
+  .promo .wrap{display:flex;justify-content:center;align-items:center;gap:9px;padding:7px 0}
+  .promo span{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+  .promo .dot{width:6px;height:6px;border-radius:50%;background:var(--magenta);flex:none}
+  .badge .rstars{color:#F4C753;font-size:.82rem;letter-spacing:.08em;margin:7px 0 3px}
+  .mapsec{background:var(--paper-2)}
+  .mapsec .head{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;flex-wrap:wrap;margin-bottom:clamp(26px,4vw,42px)}
+  .mapsec .head h2{font-size:clamp(1.9rem,4vw,3.2rem);margin-top:14px}
+  .btn-dark{background:var(--ink);color:#fff;font-weight:600;font-size:.86rem;padding:14px 26px;border-radius:2px;transition:background .2s,transform .2s}
+  .btn-dark:hover{background:var(--magenta);transform:translateY(-2px)}
+  #map{height:clamp(380px,52vw,520px);border-radius:4px;overflow:hidden;box-shadow:var(--shadow);z-index:1;background:var(--stone)}
+  .leaflet-popup-content{font-family:var(--body);font-size:.86rem;line-height:1.4}
+  .leaflet-popup-content b{font-family:var(--disp)}
+
+  .hero-usp{margin-top:18px;display:flex;flex-wrap:wrap;gap:7px 18px;max-width:560px;font-family:var(--body);font-size:.86rem;color:rgba(255,255,255,.94)}
+  .hero-usp span{display:inline-flex;align-items:center;gap:7px}
+  .hero-usp span::before{content:"✓";color:#EE6CCB;font-weight:800;font-size:.92em}
+  .hbook{margin-top:26px;background:var(--paper);color:var(--ink);border-radius:3px;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;max-width:510px;overflow:hidden}
+  .hbf{flex:1 1 130px;padding:8px 15px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:3px}
+  .hbf:nth-of-type(3){border-right:0}
+  .hbf label{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
+  .hbf input,.hbf select{border:0;background:none;font-family:var(--body);font-size:.95rem;font-weight:600;color:var(--ink);width:100%;cursor:pointer}
+  .hbf input:focus,.hbf select:focus{outline:none}
+  .hbgo{flex:1 1 100%;display:flex;align-items:center;justify-content:center;background:var(--magenta);color:#fff;font-family:var(--body);font-weight:600;font-size:.84rem;letter-spacing:.02em;padding:10px;transition:background .2s}
+  .hbgo:hover{background:var(--magenta-deep)}
+
+  @media(max-width:920px){
+    .intro .grid{grid-template-columns:1fr;gap:34px}
+    .intro figure{order:-1}
+    .room-grid{grid-template-columns:1fr}
+    .q-grid{grid-template-columns:1fr 1fr}
+    .q-item:first-child{grid-column:1/-1}
+    .off-grid{grid-template-columns:1fr}
+    .off,.off:nth-child(3n){border-right:none}
+    .why .grid{grid-template-columns:1fr}
+    .quotes{grid-template-columns:1fr 1fr}
+    .foot-top{grid-template-columns:1fr 1fr}
+    .foot-brand{grid-column:1/-1}
+  }
+  @media(max-width:640px){
+    nav.links{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);transform:translateY(-130%);transition:transform .35s;padding:6px 0}
+    nav.links.open{transform:none}
+    nav.links a{padding:14px var(--pad)}
+    .burger{display:block}.head-book{display:none}
+    .bk::after{background:linear-gradient(90deg,rgba(20,16,14,.84) 0%,rgba(20,16,14,.46) 46%,rgba(20,16,14,.1) 100%)}
+    .q-grid{grid-template-columns:1fr}
+    .foot-top{grid-template-columns:1fr}
+    .why .grid{grid-template-columns:1fr}
+    .why ul{grid-template-columns:1fr}
+    .quotes{grid-template-columns:1fr}
+    .mbook{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--ink);color:#fff;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;box-shadow:0 -10px 30px -18px rgba(0,0,0,.6)}
+    .mbook .p{font-family:var(--mono);font-size:.78rem;color:rgba(255,255,255,.85)}
+    .mbook .p b{color:#fff;font-size:1.02rem}
+    .mbook a{background:var(--magenta);color:#fff;font-weight:700;padding:11px 22px;border-radius:2px;font-size:.86rem;white-space:nowrap}
+    body{padding-bottom:62px}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+  :focus-visible{outline:2px solid var(--magenta);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="promo"><div class="wrap"><span class="dot"></span><span data-i18n="promo.txt">Site officiel • Meilleur tarif garanti • Réservation en direct</span></div></div>
+  <div class="wrap bar">
+    <a class="brand" href="#" aria-label="Hôtel 26 Faubourg"><img src="images/logo.png" alt="Hôtel 26 Faubourg"></a>
+    <nav class="links" id="menu">
+      <a href="#chambres" data-i18n="nav.rooms">Chambres</a>
+      <a href="#maison" data-i18n="nav.hotel">L'hôtel</a>
+      <a href="#quartier" data-i18n="nav.area">Le quartier</a>
+      <a href="#offres" data-i18n="nav.offers">Offres</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="head-right">
+      <div class="lang" role="group" aria-label="Langue">
+        <button id="lang-fr" onclick="setLang('fr')" aria-pressed="true">FR</button>
+        <span aria-hidden="true" style="color:var(--ink-soft)">/</span>
+        <button id="lang-en" onclick="setLang('en')" aria-pressed="false">EN</button>
+      </div>
+      <a class="book head-book" id="book-top" href="#" target="_blank" rel="noopener" data-i18n="nav.book">Réserver</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-slides" aria-hidden="true">
+    <div class="hero-slide is-active" style="background-image:url('images/hero1.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/hero2.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/hero3.jpg')"></div>
+  </div>
+  <div class="wrap">
+    <span class="eyebrow" data-i18n-html="hero.eyebrow">Paris 12<sup>e</sup> · Hôtel <span class="stars">★★★</span></span>
+    <h1 data-i18n-html="hero.title">Votre hôtel à <em>4 minutes</em><br>de la Gare de Lyon</h1>
+    <p class="lede" data-i18n-html="hero.lede">Hôtel 3 étoiles rénové au cœur du Paris authentique, entre Bastille, la Coulée verte et le marché d’Aligre.</p>
+    <div class="hbook reveal">
+      <div class="hbf"><label data-i18n="wid.arr">Arrivée</label><input type="date" id="w-arr" aria-label="Arrivée"></div>
+      <div class="hbf"><label data-i18n="wid.dep">Départ</label><input type="date" id="w-dep" aria-label="Départ"></div>
+      <div class="hbf"><label data-i18n="wid.guests">Voyageurs</label><select id="w-guests" aria-label="Voyageurs"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
+      <a class="hbgo" id="book-hero" href="#" target="_blank" rel="noopener" data-i18n="wid.go">Vérifier les disponibilités</a>
+    </div>
+    <p class="hero-usp" data-i18n-html="hero.usp"><span>Hôtel entièrement rénové</span><span>Meilleur tarif garanti</span><span>Réception 24h/24</span><span>Petit-déjeuner maison</span><span>Annulation flexible</span></p>
+    <div class="hero-price">
+      <span class="pf" data-i18n="hero.priceFrom">À partir de</span>
+      <span class="prow"><span class="pn" data-i18n="hero.priceNum">119 €</span><span class="pp" data-i18n="hero.priceNight">/ nuit</span></span>
+    </div>
+  </div>
+  <div class="hero-dots" aria-label="Photos de l'hôtel">
+    <button type="button" aria-current="true" aria-label="Chambre pierre apparente"></button>
+    <button type="button" aria-current="false" aria-label="Façade illuminée"></button>
+    <button type="button" aria-current="false" aria-label="Réception"></button>
+  </div>
+</section>
+
+<section class="factbar">
+  <div class="wrap">
+    <span class="f" data-i18n="fact.f1">Gare de Lyon · 3 min</span>
+    <span class="f" data-i18n="fact.f2">28 chambres rénovées</span>
+    <span class="f" data-i18n="fact.f3">Petit-déjeuner maison</span>
+    <span class="f" data-i18n="fact.f4">Hôtel 3 étoiles</span>
+    <span class="f" data-i18n="fact.f5">Réception 24h/24</span>
+  </div>
+</section>
+
+<section class="maison pad intro" id="maison">
+  <div class="wrap"><div class="grid">
+    <div class="reveal">
+      <span class="eyebrow" data-i18n="intro.eyebrow">La maison</span>
+      <h2 data-i18n-html="intro.title">Le charme d'un quartier, <em>Paris à vos pieds</em></h2>
+      <div class="body">
+        <p data-i18n="intro.p1">Entièrement rénové, l'hôtel ouvre au pied de la coulée verte René-Dumont, le poumon vert du 12<sup>e</sup>. Sous le Viaduc des Arts, souffleur de verre, maître chocolatier et créateurs partagent leurs ateliers.</p>
+        <p data-i18n="intro.p2">À deux pas, le marché d'Aligre et ses étals, les brocanteurs, les terrasses. De retour, l'équipe vous accueille à toute heure, autour d'un café, dans un salon où l'on a envie de s'attarder.</p>
+      </div>
+    </div>
+    <figure class="reveal">
+      <img src="images/facade.jpg" loading="lazy" alt="" data-i18n="intro.cap" data-i18n-attr="alt">
+      <figcaption data-i18n="intro.capt">Rue Hector Malot · Paris 12e</figcaption>
+    </figure>
+  </div></div>
+</section>
+
+<section class="rooms pad" id="chambres">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow" data-i18n="rooms.eyebrow">Les chambres</span>
+      <h2 data-i18n-html="rooms.title">Des chambres <em>pensées pour votre séjour</em></h2>
+    </div>
+
+    <a class="feature reveal" href="#contact">
+      <img src="images/room-double.jpg" loading="lazy" alt="" data-i18n="rooms.double.alt" data-i18n-attr="alt">
+      <div class="cap">
+        <div>
+          <div class="lab" data-i18n="rooms.double.name">Chambre Double</div>
+          <h3 data-i18n="rooms.feature.t">Murs de pierre, velours vert</h3>
+          <p data-i18n="rooms.feature.d">Nos plus belles chambres : pierre de taille parisienne et literie haut de gamme.</p>
+          <div class="price" data-i18n-html="rooms.feature.price">dès <b>129 €</b> / nuit</div>
+          <div class="chips" data-i18n-html="rooms.feature.specs"><span>16 m²</span><span>Lit Queen</span><span>Douche ou bain</span><span>Climatisation</span><span>Coffre-fort</span></div>
+        </div>
+        <span class="go" data-i18n="rooms.see">Voir →</span>
+      </div>
+    </a>
+
+    <div class="room-grid">
+      <a class="rcard reveal" href="#contact">
+        <img src="images/room-single.jpg" loading="lazy" alt="" data-i18n="rooms.single.alt" data-i18n-attr="alt">
+        <div class="b">
+          <div class="row"><h3 data-i18n="rooms.single.name">Single</h3><span class="price" data-i18n-html="rooms.single.price">dès <b>109 €</b></span></div>
+          <p data-i18n="rooms.single.d">Pour une personne, lumineuse et fonctionnelle.</p>
+          <div class="chips" data-i18n-html="rooms.single.specs"><span>12 m²</span><span>Lit simple</span><span>Douche</span><span>Climatisation</span><span>Coffre-fort</span></div>
+        </div>
+      </a>
+      <a class="rcard reveal" href="#contact">
+        <img src="images/room-twin.jpg" loading="lazy" alt="" data-i18n="rooms.twin.alt" data-i18n-attr="alt">
+        <div class="b">
+          <div class="row"><h3 data-i18n="rooms.twin.name">Twin</h3><span class="price" data-i18n-html="rooms.twin.price">dès <b>129 €</b></span></div>
+          <p data-i18n="rooms.twin.d">Deux lits séparés, derrière une verrière atelier.</p>
+          <div class="chips" data-i18n-html="rooms.twin.specs"><span>14 m²</span><span>2 lits simples</span><span>Douche</span><span>Climatisation</span><span>Coffre-fort</span></div>
+        </div>
+      </a>
+      <a class="rcard reveal" href="#contact">
+        <img src="images/room-superior.jpg" loading="lazy" alt="" data-i18n="rooms.sup.alt" data-i18n-attr="alt">
+        <div class="b">
+          <div class="row"><h3 data-i18n="rooms.sup.name">Supérieure</h3><span class="price" data-i18n-html="rooms.sup.price">dès <b>149 €</b></span></div>
+          <p data-i18n="rooms.sup.d">Plus de surface et de lumière, certaines avec vue dégagée.</p>
+          <div class="chips" data-i18n-html="rooms.sup.specs"><span>18 m²</span><span>Lit Queen</span><span>Bain</span><span>Climatisation</span><span>Coffre-fort</span></div>
+        </div>
+      </a>
+      <a class="rcard reveal" href="#contact">
+        <img src="images/room-family.jpg" loading="lazy" alt="" data-i18n="rooms.fam.alt" data-i18n-attr="alt">
+        <div class="b">
+          <div class="row"><h3 data-i18n="rooms.fam.name">Familiale</h3><span class="price" data-i18n-html="rooms.fam.price">dès <b>169 €</b></span></div>
+          <p data-i18n="rooms.fam.d">Jusqu'à 4 personnes, sous les toits.</p>
+          <div class="chips" data-i18n-html="rooms.fam.specs"><span>22 m²</span><span>Lit Queen + 2 lits</span><span>Bain</span><span>Climatisation</span><span>Coffre-fort</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<section class="why pad" id="reserver">
+  <div class="wrap"><div class="grid">
+    <div class="reveal">
+      <span class="eyebrow" data-i18n="why.eyebrow">Réserver en direct</span>
+      <h2 data-i18n="why.title">Pourquoi réserver sur le site officiel&nbsp;?</h2>
+      <p class="lead" data-i18n="why.lead">En réservant en direct, vous profitez du meilleur tarif garanti — sans commission ni intermédiaire.</p>
+      <div class="cta-row">
+        <a class="btn-solid" id="book-why" href="#" target="_blank" rel="noopener" data-i18n="why.cta">Vérifier les disponibilités</a>
+        <span class="gtee" data-i18n="why.gtee">Meilleur tarif garanti</span>
+      </div>
+    </div>
+    <ul class="reveal">
+      <li><span class="ck">✓</span><span data-i18n="why.i1">Gare de Lyon à 3 min à pied</span></li>
+      <li><span class="ck">✓</span><span data-i18n="why.i2">Réception ouverte 24h/24</span></li>
+      <li><span class="ck">✓</span><span data-i18n="why.i3">Hôtel entièrement rénové</span></li>
+      <li><span class="ck">✓</span><span data-i18n="why.i4">Petit-déjeuner maison</span></li>
+      <li><span class="ck">✓</span><span data-i18n="why.i5">Meilleur tarif garanti en direct</span></li>
+      <li><span class="ck">✓</span><span data-i18n="why.i6">Wi-Fi haut débit gratuit</span></li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- AVIS : citations vérifiées (Google / Booking). Remplace par tes avis nominatifs depuis l'Extranet. -->
+<section class="reviews pad" id="avis">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow" data-i18n="rev.eyebrow">Avis clients</span>
+      <h2 data-i18n="rev.title">Ils ont séjourné au 26 Faubourg</h2>
+      <p class="sub" data-i18n="rev.sub">Avis vérifiés de nos voyageurs sur Google et Booking.com.</p>
+    </div>
+    <div class="quotes reveal">
+      <figure class="quote"><p data-i18n="rev.q1.t">« Propre, neuf, tout disponible. Petit-déjeuner super. Calme. »</p><figcaption class="who" data-i18n="rev.q1.w">Michel · Booking</figcaption></figure>
+      <figure class="quote"><p data-i18n="rev.q2.t">« Personnel très sympathique et arrangeant, hôtel refait, très propre. »</p><figcaption class="who" data-i18n="rev.q2.w">Voyageur · Booking</figcaption></figure>
+      <figure class="quote"><p data-i18n="rev.q3.t">« Emplacement idéal près de la gare, quartier calme près de la coulée verte. »</p><figcaption class="who" data-i18n="rev.q3.w">Voyageur · Booking</figcaption></figure>
+    </div>
+    <p class="rev-sources reveal" data-i18n-html="rev.sources">Avis vérifiés sur <b>Google</b> et <b>Booking.com</b><br>Plus de <b>2 500 voyageurs</b> accueillis depuis la rénovation</p>
+    </div>
+</section>
+
+<section class="bk" id="petit-dejeuner">
+  <div class="wrap">
+    <div class="panel reveal">
+      <span class="eyebrow" data-i18n="bk.eyebrow">Petit-déjeuner</span>
+      <h2 data-i18n-html="bk.title">Sous les voûtes,<br>un buffet <em>fait maison</em>.</h2>
+      <p data-i18n="bk.desc">Dans la cave voûtée en pierre du XVIII<sup>e</sup> : viennoiseries et cakes maison, pains de l'artisan boulanger, fruits frais, œufs à la demande et produits de saison, bio ou labellisés.</p>
+      <div class="meta"><span data-i18n="bk.m1">Tous les matins · 7h – 10h30</span><span data-i18n="bk.m2">Cave voûtée en pierre</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="quartier pad" id="quartier">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow" data-i18n="q.eyebrow">Le quartier</span>
+        <h2 data-i18n-html="q.title">Tout Paris <em>commence ici</em></h2>
+      </div>
+      <p data-i18n="q.lede">À pied : Gare de Lyon (4 min), Bastille (8 min), la coulée verte et le marché d'Aligre.</p>
+    </div>
+    <div class="q-grid reveal">
+      <figure class="q-item"><img src="images/quartier-garedelyon.jpg" loading="lazy" alt="" data-i18n="q.gl.alt" data-i18n-attr="alt"><figcaption><b data-i18n="q.gl.t">Gare de Lyon</b><span data-i18n="q.gl.c">4 min à pied</span></figcaption></figure>
+      <figure class="q-item"><img src="images/quartier-couleeverte.jpg" loading="lazy" alt="" data-i18n="q.cv.alt" data-i18n-attr="alt"><figcaption><b data-i18n="q.cv.t">Coulée verte</b><span data-i18n="q.cv.c">au pied de l'hôtel</span></figcaption></figure>
+      <figure class="q-item"><img src="images/quartier-marche.jpg" loading="lazy" alt="" data-i18n="q.ma.alt" data-i18n-attr="alt"><figcaption><b data-i18n="q.ma.t">Marché d'Aligre</b><span data-i18n="q.ma.c">à deux pas</span></figcaption></figure>
+    </div>
+    <div class="access reveal">
+      <div>
+        <h4 data-i18n="acc.foot">À pied</h4>
+        <ul>
+          <li><b data-i18n="acc.gl">Gare de Lyon</b><span class="v" data-i18n="acc.glv">4 min</span></li>
+          <li><b data-i18n="acc.cv">Coulée verte</b><span class="v" data-i18n="acc.cvv">au pied de l'hôtel</span></li>
+          <li><b data-i18n="acc.ba">Bastille</b><span class="v" data-i18n="acc.bav">8 min</span></li>
+          <li><b data-i18n="acc.al">Marché d'Aligre</b><span class="v" data-i18n="acc.alv">8 min</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="acc.from">Depuis la Gare de Lyon</h4>
+        <ul>
+          <li><b data-i18n="acc.rer">RER A direct</b><span class="v" data-i18n="acc.rerv">Disneyland · La Défense</span></li>
+          <li><b data-i18n="acc.m14">Métro 14 direct</b><span class="v" data-i18n="acc.m14v">Aéroport d'Orly</span></li>
+          <li><b data-i18n="acc.tgv">TGV</b><span class="v" data-i18n="acc.tgvv">Lyon · Marseille · le Sud</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mapsec pad" id="carte">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow" data-i18n="map.eyebrow">Situation</span>
+        <h2 data-i18n-html="map.title">À <em>4 min à pied</em> de la Gare de Lyon</h2>
+      </div>
+      <a class="btn-dark" href="https://www.google.com/maps/dir/?api=1&destination=26%20rue%20Hector%20Malot%2075012%20Paris" target="_blank" rel="noopener" data-i18n="map.cta">Itinéraire Google Maps</a>
+    </div>
+    <div id="map" class="reveal" role="img" aria-label="Carte : Hôtel 26 Faubourg, Gare de Lyon, Bastille, coulée verte"></div>
+  </div>
+</section>
+
+<section class="offers pad" id="offres">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow" data-i18n="off.eyebrow">Réservation directe</span>
+      <h2 data-i18n-html="off.title">Le meilleur tarif, <em>ici et nulle part ailleurs</em>.</h2>
+    </div>
+    <div class="off-grid reveal">
+      <div class="off"><div class="k" data-i18n="off.o1.k">Week-end</div><h3 data-i18n="off.o1.t">Week-end à Paris</h3><p data-i18n="off.o1.d">Deux nuits le week-end, départ tardif le dimanche et petit-déjeuner maison à tarif préférentiel.</p><a id="book-o1" href="#" target="_blank" rel="noopener" data-i18n="off.cta">Réserver</a></div>
+      <div class="off"><div class="k" data-i18n="off.o2.k">Affaires</div><h3 data-i18n="off.o2.t">Tarif Business</h3><p data-i18n="off.o2.d">À 4 min de la Gare de Lyon : check-out express, facture sur demande et wifi haut débit pour vos déplacements pro.</p><a id="book-o2" href="#" target="_blank" rel="noopener" data-i18n="off.cta">Réserver</a></div>
+      <div class="off"><div class="k" data-i18n="off.o3.k">Séjour</div><h3 data-i18n="off.o3.t">Petit-déjeuner inclus</h3><p data-i18n="off.o3.d">Réservez en direct et profitez du buffet maison servi sous les voûtes, inclus dans votre tarif.</p><a id="book-o3" href="#" target="_blank" rel="noopener" data-i18n="off.cta">Réserver</a></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="ctaband">
+  <div class="wrap">
+    <div>
+      <h2 data-i18n="cta.title">Prêt à réserver votre séjour&nbsp;?</h2>
+      <p data-i18n="cta.sub">Meilleur tarif garanti en réservant en direct.</p>
+    </div>
+    <a id="book-cta" href="#" target="_blank" rel="noopener" data-i18n="cta.btn">Réserver maintenant</a>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img class="mark" src="images/logo-white.png" alt="Hôtel 26 Faubourg">
+        <p data-i18n="foot.tagline">Hôtel 3 étoiles entièrement rénové, au cœur du 12<sup>e</sup> arrondissement de Paris.</p>
+      </div>
+      <div class="col">
+        <h4 data-i18n="foot.contactLabel">Contact</h4>
+        <p>26 rue Hector Malot<br>75012 Paris</p>
+        <a href="tel:+33143074618">+33 1 43 07 46 18</a>
+        <a href="mailto:contact@26faubourg.com">contact@26faubourg.com</a>
+      </div>
+      <div class="col">
+        <h4 data-i18n="foot.linksLabel">Informations</h4>
+        <a href="#chambres" data-i18n="nav.rooms">Chambres</a>
+        <a href="#petit-dejeuner" data-i18n="foot.bk">Petit-déjeuner</a>
+        <a href="#quartier" data-i18n="nav.area">Le quartier</a>
+        <a href="#" id="book-foot" target="_blank" rel="noopener" data-i18n="nav.book">Réserver</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span data-i18n="foot.rights">© 2026 Hôtel 26 Faubourg — Tous droits réservés.</span>
+      <span data-i18n="foot.made">Site officiel · Meilleur tarif garanti</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const CONFIG = {
+  /* ============================================================
+     ===============  ÉDITER ICI — zone unique  =================
+     Tout ce qui change régulièrement est ici. Modifie une valeur,
+     enregistre, lance build.py. (Photos hero : remplace simplement
+     les fichiers images/hero1.jpg, hero2.jpg, hero3.jpg)
+     ============================================================ */
+
+  // --- Réservation (moteur Misterbooking) ---
+  booking: {
+    url: "https://www.secure-direct-hotel-booking.com/module_booking_engine/index.php?id_etab=1dd7536e356c16b3d1fe805c1e10ee9c&langue=",
+    langFr: "francais", langEn: "anglais"
+  },
+
+  // --- Diaporama hero : secondes entre photos ---
+  heroRotateSeconds: 9,
+
+  // --- Barre promo (tout en haut) ---
+  promo: {
+    fr: "Site officiel • Meilleur tarif garanti • Réservation en direct",
+    en: "Official site • Best rate guaranteed • Direct booking"
+  },
+
+  // --- Prix d'appel du hero (le gros chiffre) ---
+  priceFrom: { fr: "119 €", en: "€119" },
+
+  // --- Prix par catégorie de chambre ---
+  rooms: {
+    single:   { fr: "dès <b>109 €</b>",            en: "from <b>€109</b>" },
+    twin:     { fr: "dès <b>129 €</b>",            en: "from <b>€129</b>" },
+    double:   { fr: "dès <b>129 €</b> / nuit",     en: "from <b>€129</b> / night" },
+    superior: { fr: "dès <b>149 €</b>",            en: "from <b>€149</b>" },
+    family:   { fr: "dès <b>169 €</b>",            en: "from <b>€169</b>" }
+  },
+
+  // --- Les 3 offres ---
+  offers: {
+    o1: { fr: { k:"Week-end", t:"Week-end à Paris", d:"Deux nuits le week-end, départ tardif le dimanche et petit-déjeuner maison à tarif préférentiel." },
+          en: { k:"Weekend",  t:"Weekend in Paris", d:"Two weekend nights, late Sunday checkout and homemade breakfast at a preferential rate." } },
+    o2: { fr: { k:"Affaires", t:"Tarif Business", d:"À 4 min de la Gare de Lyon : check-out express, facture sur demande et wifi haut débit pour vos déplacements pro." },
+          en: { k:"Business", t:"Business rate", d:"4 minutes from Gare de Lyon: express checkout, invoice on request and fast wifi for work trips." } },
+    o3: { fr: { k:"Séjour", t:"Petit-déjeuner inclus", d:"Réservez en direct et profitez du buffet maison servi sous les voûtes, inclus dans votre tarif." },
+          en: { k:"Stay",   t:"Breakfast included",   d:"Book direct and enjoy the homemade buffet served under the vaults, included in your rate." } }
+  },
+
+  // --- Ligne de réassurance avis (volume) ---
+  reviewVolume: {
+    fr: "Avis vérifiés sur <b>Google</b> et <b>Booking.com</b><br>Plus de <b>2 500 voyageurs</b> accueillis depuis la rénovation",
+    en: "Verified on <b>Google</b> and <b>Booking.com</b><br>Over <b>2,500 travellers</b> welcomed since the renovation"
+  },
+
+  // --- Les 3 témoignages (texte + signature) ---
+  reviewQuotes: [
+    { fr:{ t:"« Propre, neuf, tout disponible. Petit-déjeuner super. Calme. »", w:"Michel · Booking" },
+      en:{ t:"\u201cClean, brand-new, everything available. Great breakfast. Quiet.\u201d", w:"Michel · Booking" } },
+    { fr:{ t:"« Personnel très sympathique et arrangeant, hôtel refait, très propre. »", w:"Voyageur · Booking" },
+      en:{ t:"\u201cVery friendly and accommodating staff, renovated hotel, spotless.\u201d", w:"Guest · Booking" } },
+    { fr:{ t:"« Emplacement idéal près de la gare, quartier calme près de la coulée verte. »", w:"Voyageur · Booking" },
+      en:{ t:"\u201cGreat location near the station, quiet area by the Coulée verte.\u201d", w:"Guest · Booking" } }
+  ]
+};
+
+const I18N = {
+ "fr":{
+  "meta.title":"Hôtel 26 Faubourg — Hôtel 3 étoiles, Paris 12e",
+  "meta.desc":"Hôtel 3 étoiles entièrement rénové dans le 12e, à deux pas de la Gare de Lyon, de Bastille et de la coulée verte.",
+  "nav.rooms":"Chambres","nav.hotel":"L'hôtel","nav.area":"Le quartier","nav.offers":"Offres","nav.contact":"Contact","nav.book":"Réserver",
+  "hero.eyebrow":"Paris 12<sup>e</sup> · Hôtel <span class=\"stars\">★★★</span>",
+  "hero.title":"Votre hôtel à <em>4 minutes</em><br>de la Gare de Lyon",
+  "hero.lede":"Hôtel 3 étoiles rénové au cœur du Paris authentique, entre Bastille, la Coulée verte et le marché d’Aligre.",
+  "hero.cta1":"Réserver en direct","hero.cta2":"Découvrir l'hôtel",
+  "intro.eyebrow":"La maison",
+  "intro.title":"Le charme d'un quartier, <em>Paris à vos pieds</em>",
+  "intro.p1":"Entièrement rénové, l'hôtel ouvre au pied de la coulée verte René-Dumont, le poumon vert du 12<sup>e</sup>. Sous le Viaduc des Arts, souffleur de verre, maître chocolatier et créateurs partagent leurs ateliers.",
+  "intro.p2":"À deux pas, le marché d'Aligre et ses étals, les brocanteurs, les terrasses. De retour, l'équipe vous accueille à toute heure, autour d'un café, dans un salon où l'on a envie de s'attarder.",
+  "intro.cap":"La façade illuminée de l'Hôtel 26 Faubourg, rue Hector Malot","intro.capt":"Rue Hector Malot · Paris 12e",
+  "rooms.eyebrow":"Les chambres","rooms.title":"Des chambres <em>pensées pour votre séjour</em>","rooms.see":"Voir →",
+  "rooms.feature.t":"Murs de pierre, velours vert","rooms.feature.d":"Nos plus belles chambres : pierre de taille parisienne et literie haut de gamme.",
+  "rooms.double.name":"Chambre Double","rooms.double.alt":"Chambre Double avec mur en pierre apparente et velours vert",
+  "rooms.single.name":"Single","rooms.single.t":"Pour voyager léger","rooms.single.d":"Compacte et lumineuse, pensée pour le voyageur solo.","rooms.single.alt":"Chambre Single de l'Hôtel 26 Faubourg",
+  "rooms.twin.name":"Twin","rooms.twin.t":"À deux lits, derrière la verrière","rooms.twin.d":"Deux vrais lits et une verrière atelier. Idéale entre amis.","rooms.twin.alt":"Chambre Twin avec verrière en métal noir",
+  "rooms.sup.name":"Supérieure","rooms.sup.t":"Plus d'espace, plus de lumière","rooms.sup.d":"De la place pour prendre son temps, et la vue sur Paris.","rooms.sup.alt":"Chambre Supérieure spacieuse",
+  "rooms.fam.name":"Familiale","rooms.fam.t":"Toute la tribu","rooms.fam.d":"De la place pour la famille, sereinement, sous les toits.","rooms.fam.alt":"Chambre Familiale sous les toits",
+  "bk.eyebrow":"Petit-déjeuner","bk.title":"Sous les voûtes,<br>un buffet <em>fait maison</em>.",
+  "bk.desc":"Dans la cave voûtée en pierre du XVIII<sup>e</sup> : viennoiseries et cakes maison, pains de l'artisan boulanger, fruits frais, œufs à la demande et produits de saison, bio ou labellisés.",
+  "bk.m1":"Tous les matins · 7h – 10h30","bk.m2":"Cave voûtée en pierre",
+  "q.eyebrow":"Le quartier","q.title":"Tout Paris <em>commence ici</em>","q.lede":"À pied : Gare de Lyon (4 min), Bastille (8 min), la coulée verte et le marché d'Aligre.",
+  "q.gl.t":"Gare de Lyon","q.gl.c":"4 min à pied","q.gl.alt":"Bouche de métro Gare de Lyon, Paris",
+  "q.cv.t":"Coulée verte","q.cv.c":"au pied de l'hôtel","q.cv.alt":"La coulée verte René-Dumont vue depuis l'hôtel",
+  "q.ma.t":"Marché d'Aligre","q.ma.c":"à deux pas","q.ma.alt":"Le marché d'Aligre, Paris 12e",
+  "off.eyebrow":"Réservation directe","off.title":"Le meilleur tarif, <em>ici et nulle part ailleurs</em>.","off.cta":"Réserver",
+  "off.o1.k":"Week-end","off.o1.t":"Week-end à Paris","off.o1.d":"Deux nuits le week-end, départ tardif le dimanche et petit-déjeuner maison à tarif préférentiel.",
+  "off.o2.k":"Affaires","off.o2.t":"Tarif Business","off.o2.d":"À 4 min de la Gare de Lyon : check-out express, facture sur demande et wifi haut débit pour vos déplacements pro.",
+  "off.o3.k":"Séjour","off.o3.t":"Petit-déjeuner inclus","off.o3.d":"Réservez en direct et profitez du buffet maison servi sous les voûtes, inclus dans votre tarif.",
+  "foot.tagline":"Hôtel 3 étoiles entièrement rénové, au cœur du 12<sup>e</sup> arrondissement de Paris.",
+  "foot.contactLabel":"Contact","foot.linksLabel":"Informations","foot.bk":"Petit-déjeuner",
+  "foot.rights":"© 2026 Hôtel 26 Faubourg — Tous droits réservés.","foot.made":"Site officiel · Meilleur tarif garanti",
+  "promo.txt":"Site officiel • Meilleur tarif garanti • Réservation en direct",
+  "map.eyebrow":"Situation","map.title":"À <em>4 min à pied</em> de la Gare de Lyon","map.cta":"Itinéraire Google Maps",
+  "hero.price":"À partir de <b>119 €</b> / nuit",
+  
+  "fact.f1":"Gare de Lyon · 4 min à pied","fact.f2":"Bastille · 8 min","fact.f3":"28 chambres","fact.f4":"Petit-déjeuner 7h–10h30","fact.f5":"Réception 24h/24",
+  "rooms.feature.price":"dès <b>129 €</b> / nuit","rooms.feature.specs":"<span>16 m²</span><span>Lit Queen</span><span>Douche ou bain</span><span>Climatisation</span><span>Coffre-fort</span>",
+  "rooms.single.price":"dès <b>109 €</b>","rooms.single.specs":"<span>12 m²</span><span>Lit simple</span><span>Douche</span><span>Climatisation</span><span>Coffre-fort</span>","rooms.single.d":"Pour une personne, lumineuse et fonctionnelle.",
+  "rooms.twin.price":"dès <b>129 €</b>","rooms.twin.specs":"<span>14 m²</span><span>2 lits simples</span><span>Douche</span><span>Climatisation</span><span>Coffre-fort</span>","rooms.twin.d":"Deux lits séparés, derrière une verrière atelier.",
+  "rooms.sup.price":"dès <b>149 €</b>","rooms.sup.specs":"<span>18 m²</span><span>Lit Queen</span><span>Bain</span><span>Climatisation</span><span>Coffre-fort</span>","rooms.sup.d":"Plus de surface et de lumière, certaines avec vue dégagée.",
+  "rooms.fam.price":"dès <b>169 €</b>","rooms.fam.specs":"<span>22 m²</span><span>Lit Queen + 2 lits</span><span>Bain</span><span>Climatisation</span><span>Coffre-fort</span>","rooms.fam.d":"Jusqu'à 4 personnes, sous les toits.",
+  "why.eyebrow":"Réserver en direct","why.title":"Pourquoi réserver sur le site officiel ?","why.lead":"En réservant en direct, vous profitez du meilleur tarif garanti — sans commission ni intermédiaire.","why.cta":"Vérifier les disponibilités","why.gtee":"Meilleur tarif garanti",
+  "why.i1":"Gare de Lyon à 3 min à pied","why.i2":"Réception ouverte 24h/24","why.i3":"Hôtel entièrement rénové","why.i4":"Petit-déjeuner maison","why.i5":"Meilleur tarif garanti en direct","why.i6":"Wi-Fi haut débit gratuit",
+  "rev.eyebrow":"Avis clients","rev.title":"Ils ont séjourné au 26 Faubourg","rev.sub":"Note moyenne sur l'ensemble des plateformes.",
+  
+  
+  
+  "rev.q1.t":"« Emplacement idéal, à deux pas de la Gare de Lyon, et un accueil aux petits soins. »","rev.q1.w":"Exemple — à remplacer par un avis vérifié",
+  "rev.q2.t":"« Chambre calme et impeccable, petit-déjeuner maison délicieux. On reviendra. »","rev.q2.w":"Exemple — à remplacer par un avis vérifié",
+  "rev.q3.t":"« Le charme d'un vrai hôtel de quartier, parfaitement rénové. »","rev.q3.w":"Exemple — à remplacer par un avis vérifié",
+  "cta.title":"Prêt à réserver votre séjour ?","cta.sub":"Meilleur tarif garanti en réservant en direct.","cta.btn":"Réserver maintenant",
+  "mbook.from":"Chambres <b>dès 119 €</b>","mbook.btn":"Réserver"
+ },
+ "en":{
+  "meta.title":"Hôtel 26 Faubourg — 3-star Hotel, Paris 12th",
+  "meta.desc":"A fully renovated 3-star hotel in Paris's 12th, steps from Gare de Lyon, Bastille and the Coulée verte.",
+  "nav.rooms":"Rooms","nav.hotel":"The hotel","nav.area":"The area","nav.offers":"Offers","nav.contact":"Contact","nav.book":"Book",
+  "hero.eyebrow":"Paris 12th · Hotel <span class=\"stars\">★★★</span>",
+  "hero.title":"Your hotel, <em>4 minutes</em><br>from Gare de Lyon",
+  "hero.lede":"A renovated 3-star hotel in the heart of authentic Paris — between Bastille, the Coulée verte and the Aligre market.",
+  "hero.cta1":"Book direct","hero.cta2":"Explore the hotel",
+  "intro.eyebrow":"The house",
+  "intro.title":"The charm of a neighbourhood, <em>Paris at your feet</em>",
+  "intro.p1":"Fully renovated, the hotel opens at the foot of the Coulée verte René-Dumont, the green lung of the 12th. Under the Viaduc des Arts, a glassblower, a master chocolatier and makers share their workshops.",
+  "intro.p2":"Steps away: the Aligre market and its stalls, antique dealers, café terraces. Back at the hotel, the team welcomes you at any hour, over a coffee, in a lounge you'll want to linger in.",
+  "intro.cap":"The illuminated façade of Hôtel 26 Faubourg on rue Hector Malot","intro.capt":"Rue Hector Malot · Paris 12th",
+  "rooms.eyebrow":"The rooms","rooms.title":"Rooms <em>designed around your stay</em>","rooms.see":"View →",
+  "rooms.feature.t":"Stone walls, green velvet","rooms.feature.d":"Our finest rooms: quarried Parisian stone and premium bedding.",
+  "rooms.double.name":"Double Room","rooms.double.alt":"Double room with exposed stone wall and green velvet",
+  "rooms.single.name":"Single","rooms.single.t":"Travel light","rooms.single.d":"Compact and bright, made for the solo traveller.","rooms.single.alt":"Single room at Hôtel 26 Faubourg",
+  "rooms.twin.name":"Twin","rooms.twin.t":"Two beds, behind the glass","rooms.twin.d":"Two real beds and an atelier glass partition. Ideal among friends.","rooms.twin.alt":"Twin room with black metal glass partition",
+  "rooms.sup.name":"Superior","rooms.sup.t":"More space, more light","rooms.sup.d":"Room to take your time, with a view over Paris.","rooms.sup.alt":"Spacious Superior room",
+  "rooms.fam.name":"Family","rooms.fam.t":"The whole crew","rooms.fam.d":"Room for the family, with ease, up under the eaves.","rooms.fam.alt":"Family room under the eaves",
+  "bk.eyebrow":"Breakfast","bk.title":"Under the vaults,<br>a <em>homemade</em> buffet.",
+  "bk.desc":"In the 18th-century vaulted stone cellar: homemade pastries and cakes, artisan baker's breads, fresh fruit, eggs to order and seasonal, organic or certified products.",
+  "bk.m1":"Every morning · 7 – 10:30 am","bk.m2":"Vaulted stone cellar",
+  "q.eyebrow":"The area","q.title":"All of Paris <em>starts here</em>","q.lede":"On foot: Gare de Lyon (4 min), Bastille (8 min), the elevated garden and the Aligre market.",
+  "q.gl.t":"Gare de Lyon","q.gl.c":"4-min walk","q.gl.alt":"Gare de Lyon metro entrance, Paris",
+  "q.cv.t":"Coulée verte","q.cv.c":"at the foot of the hotel","q.cv.alt":"The Coulée verte René-Dumont seen from the hotel",
+  "q.ma.t":"Aligre market","q.ma.c":"steps away","q.ma.alt":"The Aligre market, Paris 12th",
+  "off.eyebrow":"Direct booking","off.title":"The best rate, <em>here and nowhere else</em>.","off.cta":"Book",
+  "off.o1.k":"Weekend","off.o1.t":"Weekend in Paris","off.o1.d":"Two weekend nights, late Sunday checkout and homemade breakfast at a preferential rate.'ll find only here.",
+  "off.o2.k":"Business","off.o2.t":"Business rate","off.o2.d":"4 minutes from Gare de Lyon: express checkout, invoice on request and fast wifi for work trips.",
+  "off.o3.k":"Stay","off.o3.t":"Breakfast included","off.o3.d":"Book direct and enjoy the homemade buffet served under the vaults, included in your rate.",
+  "foot.tagline":"A fully renovated 3-star hotel in the heart of the 12th arrondissement of Paris.",
+  "foot.contactLabel":"Contact","foot.linksLabel":"Information","foot.bk":"Breakfast",
+  "foot.rights":"© 2026 Hôtel 26 Faubourg — All rights reserved.","foot.made":"Official site · Best rate guaranteed",
+  "promo.txt":"Official site • Best rate guaranteed • Direct booking",
+  "map.eyebrow":"Location","map.title":"A <em>4-minute walk</em> from Gare de Lyon","map.cta":"Google Maps directions",
+  "hero.price":"From <b>€119</b> / night",
+  
+  "fact.f1":"Gare de Lyon · 4-min walk","fact.f2":"Bastille · 8 min","fact.f3":"28 rooms","fact.f4":"Breakfast 7–10:30 am","fact.f5":"24/7 reception",
+  "rooms.feature.price":"from <b>€129</b> / night","rooms.feature.specs":"<span>16 m²</span><span>Queen bed</span><span>Shower or bath</span><span>A/C</span><span>Safe</span>",
+  "rooms.single.price":"from <b>€109</b>","rooms.single.specs":"<span>12 m²</span><span>Single bed</span><span>Shower</span><span>A/C</span><span>Safe</span>","rooms.single.d":"For one guest, bright and functional.",
+  "rooms.twin.price":"from <b>€129</b>","rooms.twin.specs":"<span>14 m²</span><span>Two single beds</span><span>Shower</span><span>A/C</span><span>Safe</span>","rooms.twin.d":"Two separate beds, behind an atelier glass partition.",
+  "rooms.sup.price":"from <b>€149</b>","rooms.sup.specs":"<span>18 m²</span><span>Queen bed</span><span>Bath</span><span>A/C</span><span>Safe</span>","rooms.sup.d":"More space and light, some with an open view.",
+  "rooms.fam.price":"from <b>€169</b>","rooms.fam.specs":"<span>22 m²</span><span>Queen + two beds</span><span>Bath</span><span>A/C</span><span>Safe</span>","rooms.fam.d":"Up to 4 guests, under the eaves.",
+  "why.eyebrow":"Book direct","why.title":"Why book on the official site?","why.lead":"Book direct and get the best rate guaranteed — no commission, no middleman.","why.cta":"Check availability","why.gtee":"Best rate guaranteed",
+  "why.i1":"Gare de Lyon, 3-min walk","why.i2":"Reception open 24/7","why.i3":"Fully renovated hotel","why.i4":"Homemade breakfast","why.i5":"Best rate guaranteed direct","why.i6":"Free high-speed Wi-Fi",
+  "rev.eyebrow":"Guest reviews","rev.title":"They stayed at 26 Faubourg","rev.sub":"Average rating across all platforms.",
+  
+  
+  
+  "rev.q1.t":"“Perfect location, steps from Gare de Lyon, and a wonderfully attentive welcome.”","rev.q1.w":"Sample — replace with a verified review",
+  "rev.q2.t":"“Quiet, spotless room and a delicious homemade breakfast. We'll be back.”","rev.q2.w":"Sample — replace with a verified review",
+  "rev.q3.t":"“The charm of a real neighbourhood hotel, beautifully renovated.”","rev.q3.w":"Sample — replace with a verified review",
+  "cta.title":"Ready to book your stay?","cta.sub":"Best rate guaranteed when you book direct.","cta.btn":"Book now",
+  "mbook.from":"Rooms <b>from €119</b>","mbook.btn":"Book"
+ }
+};
+Object.assign(I18N.fr,{"acc.foot":"À pied","acc.gl":"Gare de Lyon","acc.glv":"4 min","acc.cv":"Coulée verte","acc.cvv":"au pied de l\u2019hôtel","acc.ba":"Bastille","acc.bav":"8 min","acc.al":"Marché d\u2019Aligre","acc.alv":"8 min","acc.from":"Depuis la Gare de Lyon","acc.rer":"RER A direct","acc.rerv":"Disneyland · La Défense","acc.m14":"Métro 14 direct","acc.m14v":"Aéroport d\u2019Orly","acc.tgv":"TGV","acc.tgvv":"Lyon · Marseille · le Sud","rev.sub":"Avis vérifiés de nos voyageurs sur Google et Booking.com.","rev.q1.t":"« Propre, neuf, tout disponible. Petit-déjeuner super. Calme. »","rev.q1.w":"Michel · Booking","rev.q2.t":"« Personnel très sympathique et arrangeant, hôtel refait, très propre. »","rev.q2.w":"Voyageur · Booking","rev.q3.t":"« Emplacement idéal près de la gare, quartier calme près de la coulée verte. »","rev.q3.w":"Voyageur · Booking","rev.sources":"Avis vérifiés sur <b>Google</b> et <b>Booking.com</b><br>Plus de <b>2 500 voyageurs</b> accueillis depuis la rénovation","hero.priceFrom":"À partir de","hero.priceNum":"119 €","hero.priceNight":"/ nuit","hero.usp":"<span>Hôtel entièrement rénové</span><span>Meilleur tarif garanti</span><span>Réception 24h/24</span><span>Petit-déjeuner maison</span><span>Annulation flexible</span>","wid.arr":"Arrivée","wid.dep":"Départ","wid.guests":"Voyageurs","wid.go":"Vérifier les disponibilités"});
+Object.assign(I18N.en,{"acc.foot":"On foot","acc.gl":"Gare de Lyon","acc.glv":"4 min","acc.cv":"Coulée verte","acc.cvv":"at the doorstep","acc.ba":"Bastille","acc.bav":"8 min","acc.al":"Aligre Market","acc.alv":"8 min","acc.from":"From Gare de Lyon","acc.rer":"RER A direct","acc.rerv":"Disneyland · La Défense","acc.m14":"Metro 14 direct","acc.m14v":"Orly Airport","acc.tgv":"TGV","acc.tgvv":"Lyon · Marseille · the South","rev.sub":"Verified reviews from our guests on Google and Booking.com.","rev.q1.t":"\u201cClean, brand-new, everything available. Great breakfast. Quiet.\u201d","rev.q1.w":"Michel · Booking","rev.q2.t":"\u201cVery friendly and accommodating staff, renovated hotel, spotless.\u201d","rev.q2.w":"Guest · Booking","rev.q3.t":"\u201cGreat location near the station, quiet area by the Coulée verte.\u201d","rev.q3.w":"Guest · Booking","rev.sources":"Verified on <b>Google</b> and <b>Booking.com</b><br>Over <b>2,500 travellers</b> welcomed since the renovation","hero.priceFrom":"From","hero.priceNum":"€119","hero.priceNight":"/ night","hero.usp":"<span>Fully renovated hotel</span><span>Best rate guaranteed</span><span>24/7 reception</span><span>Homemade breakfast</span><span>Flexible cancellation</span>","wid.arr":"Check-in","wid.dep":"Check-out","wid.guests":"Guests","wid.go":"Check availability"});
+(function applyConfig(){
+  var f=I18N.fr, e=I18N.en, C=CONFIG;
+  f["promo.txt"]=C.promo.fr;        e["promo.txt"]=C.promo.en;
+  f["hero.priceNum"]=C.priceFrom.fr; e["hero.priceNum"]=C.priceFrom.en;
+  var rk={single:"rooms.single.price",twin:"rooms.twin.price",double:"rooms.feature.price",superior:"rooms.sup.price",family:"rooms.fam.price"};
+  Object.keys(rk).forEach(function(k){ if(C.rooms[k]){ f[rk[k]]=C.rooms[k].fr; e[rk[k]]=C.rooms[k].en; } });
+  ["o1","o2","o3"].forEach(function(o){ var x=C.offers[o]; if(!x) return;
+    f["off."+o+".k"]=x.fr.k; f["off."+o+".t"]=x.fr.t; f["off."+o+".d"]=x.fr.d;
+    e["off."+o+".k"]=x.en.k; e["off."+o+".t"]=x.en.t; e["off."+o+".d"]=x.en.d; });
+  f["rev.sources"]=C.reviewVolume.fr; e["rev.sources"]=C.reviewVolume.en;
+  C.reviewQuotes.forEach(function(q,idx){ var n=idx+1;
+    f["rev.q"+n+".t"]=q.fr.t; f["rev.q"+n+".w"]=q.fr.w;
+    e["rev.q"+n+".t"]=q.en.t; e["rev.q"+n+".w"]=q.en.w; });
+})();
+const BOOK_URL=CONFIG.booking.url;
+const BOOK_LANG={fr:CONFIG.booking.langFr,en:CONFIG.booking.langEn};
+const BOOK_IDS=["book-top","book-hero","book-o1","book-o2","book-o3","book-foot","book-why","book-cta","book-mobile"];
+function setLang(lang){
+  const dict=I18N[lang]; if(!dict) return;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k=el.getAttribute("data-i18n"); if(dict[k]===undefined) return;
+    if(el.hasAttribute("data-i18n-attr")) el.setAttribute(el.getAttribute("data-i18n-attr"),dict[k]);
+    else el.textContent=dict[k];
+  });
+  document.querySelectorAll("[data-i18n-html]").forEach(el=>{
+    const k=el.getAttribute("data-i18n-html"); if(dict[k]!==undefined) el.innerHTML=dict[k];
+  });
+  document.documentElement.lang=lang;
+  document.getElementById("lang-fr").setAttribute("aria-pressed",lang==="fr");
+  document.getElementById("lang-en").setAttribute("aria-pressed",lang==="en");
+  const url=BOOK_URL+BOOK_LANG[lang];
+  BOOK_IDS.forEach(id=>{const e=document.getElementById(id); if(e) e.href=url;});
+  try{localStorage.setItem("lang26",lang);}catch(e){}
+  try{var u=new URL(location.href);if(lang==="en")u.searchParams.set("lang","en");else u.searchParams.delete("lang");history.replaceState(null,"",u.pathname+u.search);}catch(e){}
+}
+(function(){let l="fr";try{const p=new URLSearchParams(location.search).get("lang");l=p||localStorage.getItem("lang26")||(navigator.language||"").slice(0,2);}catch(e){}setLang(I18N[l]?l:"fr");})();
+
+// header scrolled state
+const hd=document.getElementById("hd");
+addEventListener("scroll",()=>hd.classList.toggle("scrolled",scrollY>40),{passive:true});
+// mobile menu
+const burger=document.getElementById("burger"),menu=document.getElementById("menu");
+burger.addEventListener("click",()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o);});
+menu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{menu.classList.remove("open");burger.setAttribute("aria-expanded",false);}));
+// reveals
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+// interactive map
+if(window.L && document.getElementById("map")){
+  const H=[48.8466,2.3796],GL=[48.8443,2.3739],BA=[48.8531,2.3690],CV=[48.8486,2.3742];
+  const map=L.map("map",{scrollWheelZoom:false}).setView([48.8480,2.3756],15);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
+  const dot=(ll,c,r)=>L.circleMarker(ll,{radius:r,color:"#fff",weight:2,fillColor:c,fillOpacity:1});
+  dot(H,"#B81E92",11).addTo(map).bindPopup("<b>Hôtel 26 Faubourg</b><br>26 rue Hector Malot");
+  dot(GL,"#1A1613",8).addTo(map).bindPopup("Gare de Lyon · 4 min");
+  dot(BA,"#1A1613",8).addTo(map).bindPopup("Bastille · 8 min");
+  dot(CV,"#36432F",8).addTo(map).bindPopup("Coulée verte");
+  map.fitBounds([H,GL,BA,CV],{padding:[45,45]});
+}
+</script>
+<div class="mbook">
+  <span class="p" data-i18n-html="mbook.from">Chambres <b>dès 119 €</b></span>
+  <a id="book-mobile" href="#" target="_blank" rel="noopener" data-i18n="mbook.btn">Réserver</a>
+</div>
+<script>
+(function(){var p=function(n){return String(n).padStart(2,"0")};var f=function(d){return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())};var t=new Date(),m=new Date(Date.now()+864e5);var a=document.getElementById("w-arr"),d=document.getElementById("w-dep");if(a){a.value=f(t);a.min=f(t);}if(d){d.value=f(m);d.min=f(m);}})();
+</script>
+<script>
+(function(){
+  var slides=document.querySelectorAll(".hero-slide");
+  var dots=document.querySelectorAll(".hero-dots button");
+  if(!slides.length||!dots.length) return;
+  var i=0,timer=null;
+  var reduce=window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function go(n){i=n;slides.forEach(function(s,k){s.classList.toggle("is-active",k===n)});dots.forEach(function(d,k){d.setAttribute("aria-current",k===n?"true":"false")});}
+  function stop(){if(timer){clearInterval(timer);timer=null;}}
+  function start(){if(reduce)return;stop();timer=setInterval(function(){go((i+1)%slides.length);},(CONFIG.heroRotateSeconds||9)*1000);}
+  dots.forEach(function(d,k){d.addEventListener("click",function(){go(k);start();});});
+  start();
+})();
+</script>
+</body>
+</html>
