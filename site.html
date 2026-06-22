@@ -333,10 +333,15 @@
     .foot-brand{grid-column:1/-1}
   }
   @media(max-width:640px){
-    nav.links{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);transform:translateY(-130%);transition:transform .35s;padding:6px 0}
-    nav.links{visibility:hidden;opacity:0}
-    nav.links.open{transform:none;visibility:visible;opacity:1}
+    .promo span{white-space:nowrap;font-size:.54rem;letter-spacing:.07em}
+    nav.links{display:none;position:fixed;top:124px;left:0;right:0;z-index:70;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:6px 0;transform:none}
+    nav.links.open{display:flex}
     nav.links a{padding:14px var(--pad)}
+    .hero{min-height:auto;padding-top:124px}
+    .hero .wrap{padding-block:42px 110px}
+    .hero h1{font-size:2rem}
+    .hero .lede{font-size:1rem;line-height:1.55}
+    .hbook{margin-top:22px}
     .burger{display:block}.head-book{display:none}
     .bk::after{background:linear-gradient(90deg,rgba(20,16,14,.84) 0%,rgba(20,16,14,.46) 46%,rgba(20,16,14,.1) 100%)}
     .q-grid{grid-template-columns:1fr}
