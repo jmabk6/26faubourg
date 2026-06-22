@@ -335,6 +335,7 @@
   }
   @media(max-width:640px){
     .promo{display:none}
+    .factbar{display:none}
     .bar{height:66px}
     .brand img{height:30px}
     nav.links{display:none;position:fixed;top:66px;left:0;right:0;z-index:70;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:6px 0;transform:none}
@@ -345,7 +346,6 @@
     .hero h1{display:block;font-size:2.05rem;line-height:1.05;max-width:330px;margin-top:12px}
     .hero .lede{margin-top:16px;font-size:1rem;line-height:1.45;max-width:330px}
     .hbook{display:none}
-    .hero-cta{display:flex;order:0}
     .hero-price{margin-top:22px;order:1}
     .hero-price .pf{font-size:.58rem}
     .hero-price .pn{font-size:2.1rem}
@@ -368,6 +368,13 @@
   }
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
   :focus-visible{outline:2px solid var(--magenta);outline-offset:3px}
+  @media(max-width:760px){
+    .feature .cap .lab,.feature .cap .go{color:var(--magenta)}
+    .feature .cap h3,.feature .cap .price{color:var(--ink)}
+    .feature .cap .price b{color:var(--magenta)}
+    .feature .cap p{color:var(--ink-soft)}
+    .feature .cap .chips span{background:#fff;color:var(--ink);border-color:var(--line)}
+  }
 </style>
 </head>
 <body>
@@ -427,7 +434,7 @@
 
 <section class="factbar">
   <div class="wrap">
-    <span class="f" data-i18n="fact.f1">Gare de Lyon · 3 min</span>
+    <span class="f" data-i18n="fact.f1">Gare de Lyon · 4 min</span>
     <span class="f" data-i18n="fact.f2">28 chambres rénovées</span>
     <span class="f" data-i18n="fact.f3">Petit-déjeuner maison</span>
     <span class="f" data-i18n="fact.f4">Hôtel 3 étoiles</span>
