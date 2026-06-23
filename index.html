@@ -6,6 +6,10 @@
 <title data-i18n="meta.title">Hôtel 26 Faubourg — Hôtel 3 étoiles, Paris 12e</title>
 <meta name="description" data-i18n="meta.desc" data-i18n-attr="content" content="Hôtel 3 étoiles entièrement rénové dans le 12e, à deux pas de la Gare de Lyon, de Bastille et de la coulée verte.">
 <link rel="canonical" href="https://www.26faubourg.com/">
+<meta name="geo.position" content="48.847392;2.377642">
+<meta name="ICBM" content="48.847392, 2.377642">
+<meta name="geo.placename" content="Paris">
+<meta name="geo.region" content="FR-75">
 <link rel="alternate" hreflang="fr" href="https://www.26faubourg.com/">
 <link rel="alternate" hreflang="en" href="https://www.26faubourg.com/?lang=en">
 <link rel="alternate" hreflang="x-default" href="https://www.26faubourg.com/">
@@ -39,8 +43,12 @@
     "postalCode": "75012",
     "addressCountry": "FR"
   },
-  "geo": { "@type": "GeoCoordinates", "latitude": 48.8466, "longitude": 2.3796 },
+  "geo": { "@type": "GeoCoordinates", "latitude": 48.847392, "longitude": 2.377642 },
   "starRating": { "@type": "Rating", "ratingValue": "3" },
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Chambres accessibles aux personnes à mobilité réduite", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Wheelchair accessible rooms", "value": true }
+  ],
   "priceRange": "€€",
   "currenciesAccepted": "EUR"
 }
@@ -459,7 +467,7 @@
       <h2 data-i18n-html="intro.title">Le charme d'un quartier, <em>Paris à vos pieds</em></h2>
       <div class="body">
         <p data-i18n="intro.p1">Entièrement rénové, l'hôtel ouvre au pied de la coulée verte René-Dumont, le poumon vert du 12<sup>e</sup>. Sous le Viaduc des Arts, souffleur de verre, maître chocolatier et créateurs partagent leurs ateliers.</p>
-        <p data-i18n="intro.p2">À deux pas, le marché d'Aligre et ses étals, les brocanteurs, les terrasses. De retour, l'équipe vous accueille à toute heure, autour d'un café, dans un salon où l'on a envie de s'attarder.</p>
+        <p data-i18n="intro.p2">À deux pas, le marché d'Aligre et ses étals, les brocanteurs, les terrasses. De retour, l'équipe vous accueille à toute heure, autour d'un café, dans un salon où l'on a envie de s'attarder. L'hôtel compte 28 chambres, dont 2 accessibles aux personnes à mobilité réduite.</p>
       </div>
     </div>
     <figure class="reveal">
@@ -756,7 +764,7 @@ const I18N = {
   "intro.eyebrow":"La maison",
   "intro.title":"Le charme d'un quartier, <em>Paris à vos pieds</em>",
   "intro.p1":"Entièrement rénové, l'hôtel ouvre au pied de la coulée verte René-Dumont, le poumon vert du 12<sup>e</sup>. Sous le Viaduc des Arts, souffleur de verre, maître chocolatier et créateurs partagent leurs ateliers.",
-  "intro.p2":"À deux pas, le marché d'Aligre et ses étals, les brocanteurs, les terrasses. De retour, l'équipe vous accueille à toute heure, autour d'un café, dans un salon où l'on a envie de s'attarder.",
+  "intro.p2":"À deux pas, le marché d'Aligre et ses étals, les brocanteurs, les terrasses. De retour, l'équipe vous accueille à toute heure, autour d'un café, dans un salon où l'on a envie de s'attarder. L'hôtel compte 28 chambres, dont 2 accessibles aux personnes à mobilité réduite.",
   "intro.cap":"La façade illuminée de l'Hôtel 26 Faubourg, rue Hector Malot","intro.capt":"Rue Hector Malot · Paris 12e",
   "rooms.eyebrow":"Les chambres","rooms.title":"Des chambres <em>pensées pour votre séjour</em>","rooms.see":"Voir →",
   "rooms.feature.t":"Murs de pierre, velours vert","rooms.feature.d":"Nos plus belles chambres : pierre de taille parisienne et literie haut de gamme.",
@@ -783,7 +791,7 @@ const I18N = {
   "map.eyebrow":"Situation","map.title":"À <em>4 min à pied</em> de la Gare de Lyon","map.cta":"Itinéraire Google Maps",
   "hero.price":"À partir de <b>119 €</b> / nuit",
   
-  "fact.f1":"Gare de Lyon · 4 min à pied","fact.f2":"Bastille · 8 min","fact.f3":"28 chambres","fact.f4":"Petit-déjeuner 7h–10h30","fact.f5":"Réception 24h/24",
+  "fact.f1":"Gare de Lyon · 4 min à pied","fact.f2":"Bastille · 8 min","fact.f3":"28 chambres · 2 PMR","fact.f4":"Petit-déjeuner 7h–10h30","fact.f5":"Réception 24h/24",
   "rooms.feature.price":"dès <b>129 €</b> / nuit","rooms.feature.specs":"<span>16 m²</span><span>Lit Queen</span><span>Douche ou bain</span><span>Climatisation</span><span>Coffre-fort</span>",
   "rooms.single.price":"dès <b>109 €</b>","rooms.single.specs":"<span>12 m²</span><span>Lit simple</span><span>Douche</span><span>Climatisation</span><span>Coffre-fort</span>","rooms.single.d":"Pour une personne, lumineuse et fonctionnelle.",
   "rooms.twin.price":"dès <b>129 €</b>","rooms.twin.specs":"<span>14 m²</span><span>2 lits simples</span><span>Douche</span><span>Climatisation</span><span>Coffre-fort</span>","rooms.twin.d":"Deux lits séparés, derrière une verrière atelier.",
@@ -812,7 +820,7 @@ const I18N = {
   "intro.eyebrow":"The house",
   "intro.title":"The charm of a neighbourhood, <em>Paris at your feet</em>",
   "intro.p1":"Fully renovated, the hotel opens at the foot of the Coulée verte René-Dumont, the green lung of the 12th. Under the Viaduc des Arts, a glassblower, a master chocolatier and makers share their workshops.",
-  "intro.p2":"Steps away: the Aligre market and its stalls, antique dealers, café terraces. Back at the hotel, the team welcomes you at any hour, over a coffee, in a lounge you'll want to linger in.",
+  "intro.p2":"Steps away: the Aligre market and its stalls, antique dealers, café terraces. Back at the hotel, the team welcomes you at any hour, over a coffee, in a lounge you'll want to linger in. The hotel has 28 rooms, including 2 wheelchair-accessible rooms.",
   "intro.cap":"The illuminated façade of Hôtel 26 Faubourg on rue Hector Malot","intro.capt":"Rue Hector Malot · Paris 12th",
   "rooms.eyebrow":"The rooms","rooms.title":"Rooms <em>designed around your stay</em>","rooms.see":"View →",
   "rooms.feature.t":"Stone walls, green velvet","rooms.feature.d":"Our finest rooms: quarried Parisian stone and premium bedding.",
@@ -839,7 +847,7 @@ const I18N = {
   "map.eyebrow":"Location","map.title":"A <em>4-minute walk</em> from Gare de Lyon","map.cta":"Google Maps directions",
   "hero.price":"From <b>€119</b> / night",
   
-  "fact.f1":"Gare de Lyon · 4-min walk","fact.f2":"Bastille · 8 min","fact.f3":"28 rooms","fact.f4":"Breakfast 7–10:30 am","fact.f5":"24/7 reception",
+  "fact.f1":"Gare de Lyon · 4-min walk","fact.f2":"Bastille · 8 min","fact.f3":"28 rooms · 2 accessible","fact.f4":"Breakfast 7–10:30 am","fact.f5":"24/7 reception",
   "rooms.feature.price":"from <b>€129</b> / night","rooms.feature.specs":"<span>16 m²</span><span>Queen bed</span><span>Shower or bath</span><span>A/C</span><span>Safe</span>",
   "rooms.single.price":"from <b>€109</b>","rooms.single.specs":"<span>12 m²</span><span>Single bed</span><span>Shower</span><span>A/C</span><span>Safe</span>","rooms.single.d":"For one guest, bright and functional.",
   "rooms.twin.price":"from <b>€129</b>","rooms.twin.specs":"<span>14 m²</span><span>Two single beds</span><span>Shower</span><span>A/C</span><span>Safe</span>","rooms.twin.d":"Two separate beds, behind an atelier glass partition.",
@@ -912,8 +920,8 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
 // interactive map
 if(window.L && document.getElementById("map")){
-  const H=[48.8466,2.3796],GL=[48.8443,2.3739],BA=[48.8531,2.3690],CV=[48.8486,2.3742];
-  const map=L.map("map",{scrollWheelZoom:false}).setView([48.8480,2.3756],15);
+  const H=[48.847392,2.377642],GL=[48.8443,2.3739],BA=[48.8531,2.3690],CV=[48.8486,2.3742];
+  const map=L.map("map",{scrollWheelZoom:false}).setView([48.847392,2.377642],15);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
   const dot=(ll,c,r)=>L.circleMarker(ll,{radius:r,color:"#fff",weight:2,fillColor:c,fillOpacity:1});
   dot(H,"#B81E92",11).addTo(map).bindPopup("<b>Hôtel 26 Faubourg</b><br>26 rue Hector Malot");
