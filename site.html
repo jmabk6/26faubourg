@@ -345,7 +345,7 @@
     nav.links.open{display:flex}
     nav.links a{padding:14px var(--pad)}
     .hero{min-height:100svh;align-items:flex-start;padding-top:66px}
-    .hero .wrap{padding-block:46px 132px;display:flex;flex-direction:column}
+    .hero .wrap{padding-block:46px 56px;display:flex;flex-direction:column}
     .hero h1{display:block;font-size:2.05rem;line-height:1.05;max-width:330px;margin-top:12px}
     .hero h1::after{content:"";display:block;width:60px;height:3px;background:var(--magenta);border-radius:2px;margin-top:16px}
     .hero .lede{margin-top:16px;font-size:1rem;line-height:1.45;max-width:330px}
@@ -356,7 +356,7 @@
     .hero-price .pn{font-size:2.1rem}
     .hero-price .pp{font-size:.72rem}
     .hero-usp{margin-top:18px;display:grid;grid-template-columns:1fr;gap:9px;font-size:.9rem;order:1}
-    body{padding-bottom:132px}
+    body{padding-bottom:0}
     .burger{display:block}.head-book{display:none}
     .bk::after{background:linear-gradient(90deg,rgba(20,16,14,.84) 0%,rgba(20,16,14,.46) 46%,rgba(20,16,14,.1) 100%)}
     .q-grid{grid-template-columns:1fr}
@@ -364,7 +364,7 @@
     .why .grid{grid-template-columns:1fr}
     .why ul{grid-template-columns:1fr}
     .quotes{grid-template-columns:1fr}
-    .mbook{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--paper);border-top:1px solid var(--line);box-shadow:0 -14px 34px -20px rgba(0,0,0,.45)}
+    .mbook{display:none}
     .mbw{display:flex;align-items:stretch;padding:9px 10px}
     .mbf{flex:1;display:flex;flex-direction:column;gap:2px;padding:3px 9px;border-right:1px solid var(--line);min-width:0}
     .mbf:last-of-type{border-right:0}
@@ -427,7 +427,7 @@
       <a class="hbgo" id="book-hero" href="#" target="_blank" rel="noopener" data-i18n="wid.go">Vérifier les disponibilités</a>
     </div>
     <a class="hero-cta" id="book-herom" href="#" target="_blank" rel="noopener" data-i18n="wid.bookm">Réserver maintenant</a>
-    <p class="hero-usp" data-i18n-html="hero.usp"><span>Hôtel entièrement rénové</span><span>Meilleur tarif garanti</span><span>Réception 24h/24</span><span>Petit-déjeuner maison</span><span>Annulation flexible</span></p>
+    <p class="hero-usp" data-i18n-html="hero.usp"><span>Réception 24h/24</span><span>Meilleur tarif garanti</span><span>Petit-déjeuner maison</span></p>
     <div class="hero-price">
       <span class="pf" data-i18n="hero.priceFrom">À partir de</span>
       <span class="prow"><span class="pn" data-i18n="hero.priceNum">119 €</span><span class="pp" data-i18n="hero.priceNight">/ nuit</span></span>
@@ -856,8 +856,8 @@ const I18N = {
   "mbook.from":"Rooms <b>from €119</b>","mbook.btn":"Book"
  }
 };
-Object.assign(I18N.fr,{"acc.foot":"À pied","acc.gl":"Gare de Lyon","acc.glv":"4 min","acc.cv":"Coulée verte","acc.cvv":"au pied de l\u2019hôtel","acc.ba":"Bastille","acc.bav":"8 min","acc.al":"Marché d\u2019Aligre","acc.alv":"1 min","acc.from":"Depuis la Gare de Lyon","acc.rer":"RER A direct","acc.rerv":"Disneyland · La Défense","acc.m14":"Métro 14 direct","acc.m14v":"Aéroport d\u2019Orly","acc.tgv":"TGV","acc.tgvv":"Lyon · Marseille · le Sud","rev.sub":"Avis vérifiés de nos voyageurs sur Google et Booking.com.","rev.q1.t":"« Propre, neuf, tout disponible. Petit-déjeuner super. Calme. »","rev.q1.w":"Michel · Booking","rev.q2.t":"« Personnel très sympathique et arrangeant, hôtel refait, très propre. »","rev.q2.w":"Voyageur · Booking","rev.q3.t":"« Emplacement idéal près de la gare, quartier calme près de la coulée verte. »","rev.q3.w":"Voyageur · Booking","rev.sources":"Avis vérifiés sur <b>Google</b> et <b>Booking.com</b><br>Plus de <b>2 500 voyageurs</b> accueillis depuis la rénovation","hero.priceFrom":"À partir de","hero.priceNum":"119 €","hero.priceNight":"/ nuit","hero.usp":"<span>Hôtel entièrement rénové</span><span>Meilleur tarif garanti</span><span>Réception 24h/24</span><span>Petit-déjeuner maison</span><span>Annulation flexible</span>","wid.arr":"Arrivée","wid.dep":"Départ","wid.guests":"Voyageurs","wid.go":"Vérifier les disponibilités","wid.bookm":"Réserver maintenant"});
-Object.assign(I18N.en,{"acc.foot":"On foot","acc.gl":"Gare de Lyon","acc.glv":"4 min","acc.cv":"Coulée verte","acc.cvv":"at the doorstep","acc.ba":"Bastille","acc.bav":"8 min","acc.al":"Aligre Market","acc.alv":"1 min","acc.from":"From Gare de Lyon","acc.rer":"RER A direct","acc.rerv":"Disneyland · La Défense","acc.m14":"Metro 14 direct","acc.m14v":"Orly Airport","acc.tgv":"TGV","acc.tgvv":"Lyon · Marseille · the South","rev.sub":"Verified reviews from our guests on Google and Booking.com.","rev.q1.t":"\u201cClean, brand-new, everything available. Great breakfast. Quiet.\u201d","rev.q1.w":"Michel · Booking","rev.q2.t":"\u201cVery friendly and accommodating staff, renovated hotel, spotless.\u201d","rev.q2.w":"Guest · Booking","rev.q3.t":"\u201cGreat location near the station, quiet area by the Coulée verte.\u201d","rev.q3.w":"Guest · Booking","rev.sources":"Verified on <b>Google</b> and <b>Booking.com</b><br>Over <b>2,500 travellers</b> welcomed since the renovation","hero.priceFrom":"From","hero.priceNum":"€119","hero.priceNight":"/ night","hero.usp":"<span>Fully renovated hotel</span><span>Best rate guaranteed</span><span>24/7 reception</span><span>Homemade breakfast</span><span>Flexible cancellation</span>","wid.arr":"Check-in","wid.dep":"Check-out","wid.guests":"Guests","wid.go":"Check availability","wid.bookm":"Book now"});
+Object.assign(I18N.fr,{"acc.foot":"À pied","acc.gl":"Gare de Lyon","acc.glv":"4 min","acc.cv":"Coulée verte","acc.cvv":"au pied de l\u2019hôtel","acc.ba":"Bastille","acc.bav":"8 min","acc.al":"Marché d\u2019Aligre","acc.alv":"1 min","acc.from":"Depuis la Gare de Lyon","acc.rer":"RER A direct","acc.rerv":"Disneyland · La Défense","acc.m14":"Métro 14 direct","acc.m14v":"Aéroport d\u2019Orly","acc.tgv":"TGV","acc.tgvv":"Lyon · Marseille · le Sud","rev.sub":"Avis vérifiés de nos voyageurs sur Google et Booking.com.","rev.q1.t":"« Propre, neuf, tout disponible. Petit-déjeuner super. Calme. »","rev.q1.w":"Michel · Booking","rev.q2.t":"« Personnel très sympathique et arrangeant, hôtel refait, très propre. »","rev.q2.w":"Voyageur · Booking","rev.q3.t":"« Emplacement idéal près de la gare, quartier calme près de la coulée verte. »","rev.q3.w":"Voyageur · Booking","rev.sources":"Avis vérifiés sur <b>Google</b> et <b>Booking.com</b><br>Plus de <b>2 500 voyageurs</b> accueillis depuis la rénovation","hero.priceFrom":"À partir de","hero.priceNum":"119 €","hero.priceNight":"/ nuit","hero.usp":"<span>Réception 24h/24</span><span>Meilleur tarif garanti</span><span>Petit-déjeuner maison</span>","wid.arr":"Arrivée","wid.dep":"Départ","wid.guests":"Voyageurs","wid.go":"Vérifier les disponibilités","wid.bookm":"Réserver maintenant"});
+Object.assign(I18N.en,{"acc.foot":"On foot","acc.gl":"Gare de Lyon","acc.glv":"4 min","acc.cv":"Coulée verte","acc.cvv":"at the doorstep","acc.ba":"Bastille","acc.bav":"8 min","acc.al":"Aligre Market","acc.alv":"1 min","acc.from":"From Gare de Lyon","acc.rer":"RER A direct","acc.rerv":"Disneyland · La Défense","acc.m14":"Metro 14 direct","acc.m14v":"Orly Airport","acc.tgv":"TGV","acc.tgvv":"Lyon · Marseille · the South","rev.sub":"Verified reviews from our guests on Google and Booking.com.","rev.q1.t":"\u201cClean, brand-new, everything available. Great breakfast. Quiet.\u201d","rev.q1.w":"Michel · Booking","rev.q2.t":"\u201cVery friendly and accommodating staff, renovated hotel, spotless.\u201d","rev.q2.w":"Guest · Booking","rev.q3.t":"\u201cGreat location near the station, quiet area by the Coulée verte.\u201d","rev.q3.w":"Guest · Booking","rev.sources":"Verified on <b>Google</b> and <b>Booking.com</b><br>Over <b>2,500 travellers</b> welcomed since the renovation","hero.priceFrom":"From","hero.priceNum":"€119","hero.priceNight":"/ night","hero.usp":"<span>24/7 reception</span><span>Best rate guaranteed</span><span>Homemade breakfast</span>","wid.arr":"Check-in","wid.dep":"Check-out","wid.guests":"Guests","wid.go":"Check availability","wid.bookm":"Book now"});
 Object.assign(I18N.fr,{"mbk.t1":"Site officiel","mbk.t2":"Meilleur tarif garanti","mbk.t3":"Paiement sécurisé"});
 Object.assign(I18N.en,{"mbk.t1":"Official site","mbk.t2":"Best rate guaranteed","mbk.t3":"Secure payment"});
 (function applyConfig(){
