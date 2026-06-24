@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bon plan · 26 Faubourg</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4efe9; --paper-2:#ece5db; --ink:#1a1613; --ink-soft:#6b6258;
+    --magenta:#c0146b; --line:#d9cfc2; --white:#fff; --ok:#1f7a4d; --off:#9a9389;
+    --disp:'Bricolage Grotesque',sans-serif; --body:'Inter',sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.5;min-height:100vh}
+  .top{background:var(--ink);color:var(--paper);padding:16px 22px;display:flex;align-items:center;justify-content:space-between}
+  .top .brand{font-family:var(--disp);font-weight:700;font-size:1.1rem}
+  .top .brand span{color:var(--magenta)}
+  .top .who{font-family:var(--mono);font-size:.7rem;opacity:.8}
+  .top .who a{color:var(--paper);opacity:.6;margin-left:12px;cursor:pointer;text-decoration:underline}
+  .wrap{max-width:560px;margin:0 auto;padding:26px 18px 60px}
+
+  /* login */
+  #login{max-width:380px;margin:60px auto;background:var(--white);border:1px solid var(--line);border-radius:8px;padding:30px 28px;box-shadow:0 20px 50px -34px rgba(0,0,0,.4)}
+  #login h1{font-family:var(--disp);font-size:1.5rem;margin-bottom:6px}
+  #login p{color:var(--ink-soft);font-size:.9rem;margin-bottom:22px}
+  label{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;margin-top:16px}
+  input,select{width:100%;border:1px solid var(--line);border-radius:5px;padding:12px 14px;font-family:var(--body);font-size:.98rem;background:var(--white);color:var(--ink)}
+  input:focus,select:focus{outline:none;border-color:var(--magenta)}
+  .btn{width:100%;background:var(--magenta);color:#fff;border:none;border-radius:5px;padding:14px;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;margin-top:22px;transition:opacity .2s}
+  .btn:hover{opacity:.9}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .err{color:#b3261e;font-size:.85rem;margin-top:12px;min-height:18px}
+
+  /* form */
+  #app{display:none}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:24px 24px 28px;margin-bottom:18px}
+  .card h2{font-family:var(--disp);font-size:1.2rem;margin-bottom:4px}
+  .card .sub{color:var(--ink-soft);font-size:.86rem;margin-bottom:14px}
+  .switch{display:flex;align-items:center;gap:12px;background:var(--paper-2);border-radius:6px;padding:14px 16px;margin-bottom:18px}
+  .switch input{width:auto}
+  .switch .lbl{font-family:var(--disp);font-weight:600}
+  .switch .state{margin-left:auto;font-family:var(--mono);font-size:.72rem;padding:4px 10px;border-radius:20px}
+  .state.on{background:#d7f0e0;color:var(--ok)}
+  .state.off{background:#eee;color:var(--off)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .hint{font-size:.78rem;color:var(--ink-soft);margin-top:6px}
+
+  /* aperçu */
+  .preview-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--magenta);margin:6px 0 10px}
+  .preview{background:var(--ink);color:var(--paper);border-radius:6px;display:flex;align-items:center;gap:16px;padding:15px 20px;flex-wrap:wrap}
+  .preview .tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:var(--magenta);color:#fff;padding:5px 11px;border-radius:3px;white-space:nowrap}
+  .preview .ptxt{flex:1;min-width:180px}
+  .preview .ptxt .t{font-family:var(--disp);font-size:1.05rem;font-weight:600;line-height:1.2}
+  .preview .ptxt .d{font-size:.8rem;opacity:.78;margin-top:2px}
+  .preview .pprice{font-family:var(--disp);font-size:1.5rem;font-weight:700;white-space:nowrap}
+  .preview .pbtn{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;background:var(--magenta);color:#fff;padding:11px 18px;border-radius:3px;white-space:nowrap}
+  .preview.masked{opacity:.4;filter:grayscale(.6)}
+  .masked-note{font-family:var(--mono);font-size:.72rem;color:var(--off);text-align:center;padding:14px}
+
+  .save{position:sticky;bottom:0;background:var(--paper);padding:16px 0 0;margin-top:6px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;padding:13px 22px;border-radius:6px;font-size:.9rem;transition:transform .3s;z-index:50}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .linkbox{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);background:var(--paper-2);border-radius:5px;padding:10px 12px;margin-top:10px;word-break:break-all;display:none}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="brand">26<span>·</span>Bon plan</div>
+  <div class="who" id="who"></div>
+</div>
+
+<!-- LOGIN -->
+<div id="login">
+  <h1>Connexion</h1>
+  <p>Espace de gestion du bon plan du jour.</p>
+  <label>E-mail</label>
+  <input type="email" id="email" autocomplete="username" placeholder="vous@exemple.com">
+  <label>Mot de passe</label>
+  <input type="password" id="pwd" autocomplete="current-password" placeholder="••••••••">
+  <button class="btn" id="loginBtn">Se connecter</button>
+  <div class="err" id="loginErr"></div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="wrap">
+
+    <div class="card">
+      <div class="switch">
+        <input type="checkbox" id="actif">
+        <span class="lbl">Afficher le bon plan sur le site</span>
+        <span class="state off" id="stateBadge">Masqué</span>
+      </div>
+
+      <h2>L'offre</h2>
+      <div class="sub">Ce que verra le visiteur sur la page d'accueil.</div>
+
+      <label>Titre</label>
+      <input type="text" id="titre" placeholder="Nuit du vendredi 11 juillet" maxlength="60">
+
+      <label>Détail</label>
+      <input type="text" id="detail" placeholder="Chambre Double · petit-déjeuner offert" maxlength="80">
+
+      <label>Prix affiché</label>
+      <input type="text" id="prix" placeholder="119 €" maxlength="20">
+    </div>
+
+    <div class="card">
+      <h2>La date à vendre</h2>
+      <div class="sub">Le bouton enverra le client directement sur cette date dans le moteur.</div>
+
+      <div class="row2">
+        <div>
+          <label>Date d'arrivée</label>
+          <input type="date" id="dateArr">
+        </div>
+        <div>
+          <label>Nombre de nuits</label>
+          <input type="number" id="nbNuit" min="1" max="30" value="1">
+        </div>
+      </div>
+
+      <label>Type de chambre (optionnel)</label>
+      <select id="chambre">
+        <option value="">Toutes les chambres</option>
+        <option value="48704">Single</option>
+        <option value="48708">Double</option>
+        <option value="48710">Twin</option>
+      </select>
+      <div class="hint">Supérieure et Familiale : codes à demander à Misterbooking.</div>
+
+      <div class="linkbox" id="linkPreview"></div>
+    </div>
+
+    <div class="card">
+      <div class="preview-label">Aperçu en direct</div>
+      <div id="previewBox"></div>
+    </div>
+
+    <div class="save">
+      <button class="btn" id="saveBtn">Publier sur le site</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDgQLB6f43l5e0hOEItqWUlOXJ23Ar0qtU",
+  authDomain: "faubourg-53558.firebaseapp.com",
+  projectId: "faubourg-53558",
+  storageBucket: "faubourg-53558.firebasestorage.app",
+  messagingSenderId: "809355897239",
+  appId: "1:809355897239:web:1dfbb88264efd91a4b7cd2"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const DOCREF = doc(db, "site", "bonplan");
+const BASE = "https://www.secure-direct-hotel-booking.com/module_booking_engine/index.php?id_etab=1dd7536e356c16b3d1fe805c1e10ee9c&langue=francais";
+
+const $ = id => document.getElementById(id);
+
+// ---- login ----
+$("loginBtn").onclick = async () => {
+  $("loginErr").textContent = "";
+  $("loginBtn").disabled = true;
+  try {
+    await signInWithEmailAndPassword(auth, $("email").value.trim(), $("pwd").value);
+  } catch(e) {
+    $("loginErr").textContent = "E-mail ou mot de passe incorrect.";
+  }
+  $("loginBtn").disabled = false;
+};
+$("pwd").addEventListener("keydown", e => { if(e.key==="Enter") $("loginBtn").click(); });
+
+onAuthStateChanged(auth, async user => {
+  if (user) {
+    $("login").style.display = "none";
+    $("app").style.display = "block";
+    $("who").innerHTML = user.email + ' <a id="logout">déconnexion</a>';
+    $("logout").onclick = () => signOut(auth);
+    await loadCurrent();
+  } else {
+    $("login").style.display = "block";
+    $("app").style.display = "none";
+  }
+});
+
+// ---- construire le lien Misterbooking ----
+function buildLink(){
+  const d = $("dateArr").value; // YYYY-MM-DD
+  if(!d) return "";
+  const [y,m,j] = d.split("-");
+  const dateFr = `${j}/${m}/${y}`;
+  let url = `${BASE}&date_deb=${dateFr}&nb_nuit=${$("nbNuit").value||1}`;
+  if($("chambre").value) url += `&id_chambre_filtre=${$("chambre").value}`;
+  return url;
+}
+
+// ---- aperçu live ----
+function refresh(){
+  const actif = $("actif").checked;
+  $("stateBadge").textContent = actif ? "Affiché" : "Masqué";
+  $("stateBadge").className = "state " + (actif ? "on" : "off");
+  const link = buildLink();
+  $("linkPreview").style.display = link ? "block" : "none";
+  $("linkPreview").textContent = link;
+
+  const box = $("previewBox");
+  if(!actif){
+    box.innerHTML = '<div class="masked-note">L\'encart est masqué — le site ne l\'affiche pas.</div>';
+    return;
+  }
+  box.innerHTML = `<div class="preview">
+    <span class="tag">● Bon plan</span>
+    <div class="ptxt"><div class="t">${esc($("titre").value)||"Titre de l'offre"}</div><div class="d">${esc($("detail").value)||"Détail de l'offre"}</div></div>
+    <div class="pprice">${esc($("prix").value)||"— €"}</div>
+    <span class="pbtn">Réserver →</span>
+  </div>`;
+}
+function esc(s){ return (s||"").replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c])); }
+["actif","titre","detail","prix","dateArr","nbNuit","chambre"].forEach(id=>{
+  $(id).addEventListener("input", refresh);
+  $(id).addEventListener("change", refresh);
+});
+
+// ---- charger l'état actuel ----
+async function loadCurrent(){
+  try{
+    const snap = await getDoc(DOCREF);
+    if(snap.exists()){
+      const d = snap.data();
+      $("actif").checked = !!d.actif;
+      $("titre").value = d.titre||"";
+      $("detail").value = d.detail||"";
+      $("prix").value = d.prix||"";
+      $("dateArr").value = d.dateArr||"";
+      $("nbNuit").value = d.nbNuit||1;
+      $("chambre").value = d.chambre||"";
+    }
+  }catch(e){ console.warn(e); }
+  refresh();
+}
+
+// ---- publier ----
+$("saveBtn").onclick = async () => {
+  $("saveBtn").disabled = true;
+  const data = {
+    actif: $("actif").checked,
+    titre: $("titre").value.trim(),
+    detail: $("detail").value.trim(),
+    prix: $("prix").value.trim(),
+    dateArr: $("dateArr").value,
+    nbNuit: parseInt($("nbNuit").value)||1,
+    chambre: $("chambre").value,
+    lien: buildLink(),
+    maj: new Date().toISOString()
+  };
+  try{
+    await setDoc(DOCREF, data);
+    toast("Publié ! En ligne sur le site.");
+  }catch(e){
+    toast("Erreur : " + e.code);
+  }
+  $("saveBtn").disabled = false;
+};
+
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"), 2600);
+}
+</script>
+</body>
+</html>
