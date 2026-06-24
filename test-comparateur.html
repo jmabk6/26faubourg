@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Test comparateur Misterbooking — 26 Faubourg</title>
+<style>
+  body{font-family:system-ui,Arial,sans-serif;margin:0;background:#f4efe9;color:#1a1a1a}
+  .wrap{max-width:760px;margin:0 auto;padding:40px 20px}
+  h1{font-size:1.4rem}
+  .note{background:#fff;border:1px solid #ddd;border-radius:10px;padding:16px 18px;margin:18px 0;font-size:.92rem;line-height:1.5;color:#444}
+  .box{background:#fff;border:2px dashed #c0146b;border-radius:12px;padding:24px;margin-top:24px}
+  .box h2{margin-top:0;font-size:1rem;color:#c0146b;letter-spacing:.04em;text-transform:uppercase}
+  code{background:#eee;padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Test isolé — Comparateur Misterbooking</h1>
+
+  <div class="note">
+    Cette page sert uniquement à vérifier <strong>deux choses</strong> :<br>
+    1. Le comparateur s'affiche-t-il correctement (rendu visuel) ?<br>
+    2. Affiche-t-il des <strong>prix</strong> quand tu choisis une date où tu as des chambres libres, ou bien « aucun hébergement disponible » ?<br><br>
+    Choisis une date dans <strong>2 à 4 semaines</strong> (pas aujourd'hui, où tu es peut-être complet) pour bien tester.
+  </div>
+
+  <div class="box">
+    <h2>↓ Le comparateur s'affiche ci-dessous ↓</h2>
+
+    <!-- ===== CODE COMPARATEUR MISTERBOOKING ===== -->
+    <div id="comparatorMB"></div>
+    <script>
+        var langue = 'fr';
+        var id_etab = '1dd7536e356c16b3d1fe805c1e10ee9c';
+        //var param = 'param-1dd7536e356c16b3d1fe805c1e10ee9c';
+        //var style = 'style-1dd7536e356c16b3d1fe805c1e10ee9c';
+    </script>
+    <script src="https://www.secure-direct-hotel-booking.com/comparator/scriptComparator.js"></script>
+    <!-- ===== FIN CODE COMPARATEUR ===== -->
+
+  </div>
+
+  <div class="note">
+    <strong>Si rien ne s'affiche dans le cadre rose</strong> : c'est que le script externe ne s'est pas chargé (vérifie ta connexion, ou que Misterbooking autorise bien l'affichage). <br>
+    <strong>Si ça affiche « aucun hébergement disponible »</strong> alors que tu as des chambres libres : il y a un réglage à revoir côté Misterbooking avant de l'intégrer au vrai site.<br>
+    <strong>Si ça affiche un prix</strong> : 🎉 on peut l'intégrer dans <code>site.html</code>.
+  </div>
+</div>
+</body>
+</html>
