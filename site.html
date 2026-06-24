@@ -240,6 +240,17 @@
   .factbar .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px 28px;padding-block:18px}
   .factbar .f{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;color:rgba(245,241,234,.92)}
   .factbar .f::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brass);flex:none}
+
+  /* Bon plan du jour */
+  .bonplan{display:flex;align-items:center;gap:22px;padding:16px 6vw;background:var(--ink);color:var(--paper);text-decoration:none;flex-wrap:wrap;border-top:1px solid rgba(245,241,234,.12)}
+  .bonplan .bp-tag{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;background:var(--magenta);color:#fff;padding:6px 12px;border-radius:3px;white-space:nowrap}
+  .bonplan .bp-tag::before{content:"● "}
+  .bonplan .bp-txt{flex:1;min-width:220px;display:flex;flex-direction:column}
+  .bonplan .bp-t{font-family:var(--disp);font-size:1.12rem;font-weight:600;line-height:1.2}
+  .bonplan .bp-d{font-size:.84rem;opacity:.78;margin-top:2px}
+  .bonplan .bp-price{font-family:var(--disp);font-size:1.7rem;font-weight:700;white-space:nowrap}
+  .bonplan .bp-btn{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;background:var(--magenta);color:#fff;padding:13px 24px;border-radius:3px;white-space:nowrap;transition:opacity .2s}
+  .bonplan:hover .bp-btn{opacity:.88}
   .hero-price{margin-top:20px;display:flex;flex-direction:column;gap:2px}
   .hero-price .pf{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.72)}
   .hero-price .prow{display:flex;align-items:baseline;gap:9px}
@@ -346,6 +357,12 @@
   @media(max-width:640px){
     .promo{display:none}
     .factbar{display:none}
+    .bonplan{padding:14px 20px;gap:12px}
+    .bonplan .bp-tag{font-size:.58rem;padding:5px 10px}
+    .bonplan .bp-t{font-size:.98rem}
+    .bonplan .bp-d{font-size:.76rem}
+    .bonplan .bp-price{font-size:1.35rem}
+    .bonplan .bp-btn{width:100%;text-align:center;order:5;padding:12px}
     .hero-slide{display:none}
     .hero-slide:nth-child(3){display:block;opacity:1}
     .hero-dots{display:none}
@@ -451,6 +468,14 @@
     <button type="button" aria-current="false" aria-label="Réception"></button>
   </div>
 </section>
+
+<!-- Bon plan du jour (piloté depuis Firestore par le yield manager) -->
+<a id="bonplan" class="bonplan" href="#" target="_blank" rel="noopener" hidden>
+  <span class="bp-tag" data-i18n="bp.tag">Bon plan</span>
+  <span class="bp-txt"><span class="bp-t" id="bp-titre"></span><span class="bp-d" id="bp-detail"></span></span>
+  <span class="bp-price" id="bp-prix"></span>
+  <span class="bp-btn" data-i18n="bp.cta">Réserver →</span>
+</a>
 
 <section class="factbar">
   <div class="wrap">
@@ -772,6 +797,7 @@ const I18N = {
   "intro.p2":"À deux pas, le marché d'Aligre et ses étals, les brocanteurs, les terrasses. De retour, l'équipe vous accueille à toute heure, autour d'un café, dans un salon où l'on a envie de s'attarder. L'hôtel compte 28 chambres, dont 2 accessibles aux personnes à mobilité réduite.",
   "intro.cap":"La façade illuminée de l'Hôtel 26 Faubourg, rue Hector Malot","intro.capt":"Rue Hector Malot · Paris 12<sup>e</sup>",
   "rooms.eyebrow":"Les chambres","rooms.title":"Des chambres <em>pensées pour votre séjour</em>","rooms.see":"Voir les disponibilités →",
+  "bp.tag":"Bon plan","bp.cta":"Réserver →",
   "rooms.feature.t":"Parquet chêne, mobilier design","rooms.feature.d":"Un espace contemporain et apaisant : parquet en chêne, photos de créateur et mobilier design, pensé pour deux.",
   "rooms.double.name":"Chambre Double","rooms.double.alt":"Chambre Double contemporaine de l'Hôtel 26 Faubourg",
   "rooms.single.name":"Single","rooms.single.d":"Pour le voyageur solo : parquet en chêne, décoration sobre et contemporaine, tout le confort d'une grande.","rooms.single.alt":"Chambre Single de l'Hôtel 26 Faubourg",
@@ -828,6 +854,7 @@ const I18N = {
   "intro.p2":"Steps away: the Aligre market and its stalls, antique dealers, café terraces. Back at the hotel, the team welcomes you at any hour, over a coffee, in a lounge you'll want to linger in. The hotel has 28 rooms, including 2 wheelchair-accessible rooms.",
   "intro.cap":"The illuminated façade of Hôtel 26 Faubourg on rue Hector Malot","intro.capt":"Rue Hector Malot · Paris 12th",
   "rooms.eyebrow":"The rooms","rooms.title":"Rooms <em>designed around your stay</em>","rooms.see":"Check availability →",
+  "bp.tag":"Deal","bp.cta":"Book →",
   "rooms.feature.t":"Oak floors, design furniture","rooms.feature.d":"A calm, contemporary space: oak parquet, designer photography and design furniture, made for two.",
   "rooms.double.name":"Double Room","rooms.double.alt":"Contemporary Double room at Hôtel 26 Faubourg",
   "rooms.single.name":"Single","rooms.single.d":"For the solo traveller: oak parquet, sober contemporary decor, all the comforts of a larger room.","rooms.single.alt":"Single room at Hôtel 26 Faubourg",
@@ -962,6 +989,36 @@ if(window.L && document.getElementById("map")){
   dots.forEach(function(d,k){d.addEventListener("click",function(){go(k);start();});});
   start();
 })();
+</script>
+
+<!-- Lecture du bon plan du jour depuis Firestore -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyDgQLB6f43l5e0hOEItqWUlOXJ23Ar0qtU",
+  authDomain: "faubourg-53558.firebaseapp.com",
+  projectId: "faubourg-53558",
+  storageBucket: "faubourg-53558.firebasestorage.app",
+  messagingSenderId: "809355897239",
+  appId: "1:809355897239:web:1dfbb88264efd91a4b7cd2"
+};
+try {
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const snap = await getDoc(doc(db, "site", "bonplan"));
+  if (snap.exists()) {
+    const d = snap.data();
+    const el = document.getElementById("bonplan");
+    if (d.actif && d.titre && el) {
+      document.getElementById("bp-titre").textContent = d.titre || "";
+      document.getElementById("bp-detail").textContent = d.detail || "";
+      document.getElementById("bp-prix").textContent = d.prix || "";
+      if (d.lien) el.setAttribute("href", d.lien);
+      el.hidden = false;
+    }
+  }
+} catch(e) { /* si Firestore indisponible, on n'affiche simplement pas le bandeau */ }
 </script>
 </body>
 </html>
