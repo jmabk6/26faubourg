@@ -136,6 +136,8 @@
   .intro .body{color:var(--ink-soft);font-size:1.04rem}
   .intro .body p{margin-top:18px;text-align:justify}
   .intro .body .hl{color:var(--magenta);font-weight:600}
+  /* Justification des textes longs en blocs */
+  .bk p, .why .lead{text-align:justify}
   .intro figure{position:relative}
   .intro figure img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:3px;box-shadow:var(--shadow)}
   .intro figure figcaption{position:absolute;left:-1px;bottom:18px;background:var(--paper);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);padding:8px 14px;border-left:2px solid var(--magenta)}
@@ -358,6 +360,8 @@
   @media(max-width:640px){
     .promo{display:none}
     .factbar{display:none}
+    /* Sur mobile, on repasse en alignement à gauche (justify crée des rivières sur écran étroit) */
+    .intro .body p, .bk p, .why .lead{text-align:left}
     .bonplan{padding:14px 20px;gap:12px}
     .bonplan .bp-tag{font-size:.58rem;padding:5px 10px}
     .bonplan .bp-t{font-size:.98rem}
@@ -495,7 +499,7 @@
       <h2 data-i18n-html="intro.title">Le charme d'un quartier, <em>Paris à vos pieds</em></h2>
       <div class="body">
         <p data-i18n-html="intro.p1">Entièrement rénové, l'hôtel ouvre au pied de la coulée verte René-Dumont, le poumon vert du 12<sup>e</sup>. Sous le Viaduc des Arts, souffleur de verre, maître chocolatier et créateurs partagent leurs ateliers.</p>
-        <p data-i18n-html="intro.p2">À deux pas, le marché d'Aligre et ses étals, les brocanteurs, les terrasses. De retour, l'équipe vous accueille à toute heure, autour d'un café, dans un salon où l'on a envie de s'attarder. L'hôtel compte <span class="hl">28 chambres</span>, dont <span class="hl">2 accessibles aux personnes à mobilité réduite</span>.</p>
+        <p data-i18n-html="intro.p2">À deux pas, le marché d'Aligre et ses étals, les brocanteurs, les terrasses. De retour, l'équipe vous accueille à toute heure, autour d'un café, dans un salon où l'on a envie de s'attarder. L'hôtel compte <span class="hl">28 chambres</span>, dont <span class="hl">2 accessibles aux personnes à mobilité réduite</span>.</p>
       </div>
     </div>
     <figure class="reveal">
@@ -795,7 +799,7 @@ const I18N = {
   "intro.eyebrow":"La maison",
   "intro.title":"Le charme d'un quartier, <em>Paris à vos pieds</em>",
   "intro.p1":"Entièrement rénové, l'hôtel ouvre au pied de la coulée verte René-Dumont, le poumon vert du 12<sup>e</sup>. Sous le Viaduc des Arts, souffleur de verre, maître chocolatier et créateurs partagent leurs ateliers.",
-  "intro.p2":"À deux pas, le marché d'Aligre et ses étals, les brocanteurs, les terrasses. De retour, l'équipe vous accueille à toute heure, autour d'un café, dans un salon où l'on a envie de s'attarder. L'hôtel compte <span class=\"hl\">28 chambres</span>, dont <span class=\"hl\">2 accessibles aux personnes à mobilité réduite</span>.",
+  "intro.p2":"À deux pas, le marché d'Aligre et ses étals, les brocanteurs, les terrasses. De retour, l'équipe vous accueille à toute heure, autour d'un café, dans un salon où l'on a envie de s'attarder. L'hôtel compte <span class=\"hl\">28 chambres</span>, dont <span class=\"hl\">2 accessibles aux personnes à mobilité réduite</span>.",
   "intro.cap":"La façade illuminée de l'Hôtel 26 Faubourg, rue Hector Malot","intro.capt":"Rue Hector Malot · Paris 12<sup>e</sup>",
   "rooms.eyebrow":"Les chambres","rooms.title":"Des chambres <em>pensées pour votre séjour</em>","rooms.see":"Voir les disponibilités →",
   "bp.tag":"Bon plan","bp.cta":"Réserver →",
@@ -852,7 +856,7 @@ const I18N = {
   "intro.eyebrow":"The house",
   "intro.title":"The charm of a neighbourhood, <em>Paris at your feet</em>",
   "intro.p1":"Fully renovated, the hotel opens at the foot of the Coulée verte René-Dumont, the green lung of the 12th. Under the Viaduc des Arts, a glassblower, a master chocolatier and makers share their workshops.",
-  "intro.p2":"Steps away: the Aligre market and its stalls, antique dealers, café terraces. Back at the hotel, the team welcomes you at any hour, over a coffee, in a lounge you'll want to linger in. The hotel has <span class=\"hl\">28 rooms</span>, including <span class=\"hl\">2 wheelchair-accessible rooms</span>.",
+  "intro.p2":"Steps away: the Aligre market and its stalls, antique dealers, café terraces. Back at the hotel, the team welcomes you at any hour, over a coffee, in a lounge you'll want to linger in. The hotel has <span class=\"hl\">28 rooms</span>, including <span class=\"hl\">2 wheelchair-accessible rooms</span>.",
   "intro.cap":"The illuminated façade of Hôtel 26 Faubourg on rue Hector Malot","intro.capt":"Rue Hector Malot · Paris 12th",
   "rooms.eyebrow":"The rooms","rooms.title":"Rooms <em>designed around your stay</em>","rooms.see":"Check availability →",
   "bp.tag":"Deal","bp.cta":"Book →",
