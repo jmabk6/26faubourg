@@ -232,6 +232,9 @@
   footer .col a,footer .col p{display:block;color:rgba(245,241,234,.78);font-size:.94rem;margin-bottom:9px}
   footer .col a:hover{color:#fff}
   .foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:24px;font-size:.78rem;color:rgba(245,241,234,.5)}
+  .foot-legal{display:flex;gap:18px;flex-wrap:wrap}
+  .foot-legal a{color:rgba(245,241,234,.6);text-decoration:none;transition:color .2s}
+  .foot-legal a:hover{color:var(--magenta)}
 
   .rev-sources{margin-top:36px;line-height:1.9;text-align:center;font-family:var(--mono);font-size:.82rem;letter-spacing:.04em;color:var(--ink-soft)}
   .rev-sources b{color:var(--ink)}
@@ -462,10 +465,6 @@
     </div>
     <a class="hero-cta" id="book-herom" href="#" target="_blank" rel="noopener" data-i18n="wid.bookm">Réserver maintenant</a>
     <p class="hero-usp" data-i18n-html="hero.usp"><span>Réception 24h/24</span><span>Meilleur tarif garanti</span><span>Petit-déjeuner maison</span></p>
-    <div class="hero-price">
-      <span class="pf" data-i18n="hero.priceFrom">Dès</span>
-      <span class="prow"><span class="pn" data-i18n="hero.priceNum">119 €</span><span class="pp" data-i18n="hero.priceNight">/ nuit</span></span>
-    </div>
   </div>
   <div class="hero-dots" aria-label="Photos de l'hôtel">
     <button type="button" aria-current="true" aria-label="Chambre pierre apparente"></button>
@@ -718,7 +717,12 @@
     </div>
     <div class="foot-bottom">
       <span data-i18n="foot.rights">© 2026 Hôtel 26 Faubourg — Tous droits réservés.</span>
-      <span data-i18n="foot.made">Site officiel · Meilleur tarif garanti</span>
+      <span class="foot-legal">
+        <a href="mentions-legales.html" data-i18n="foot.legal">Mentions légales</a>
+        <a href="confidentialite.html" data-i18n="foot.privacy">Confidentialité</a>
+        <a href="cookies.html" data-i18n="foot.cookies">Cookies</a>
+        <a href="cgv.html" data-i18n="foot.cgv">CGV</a>
+      </span>
     </div>
   </div>
 </footer>
@@ -821,6 +825,7 @@ const I18N = {
   "off.o2.k":"Affaires","off.o2.t":"Tarif Business","off.o2.d":"À 5 min de la Gare de Lyon : check-out express, facture sur demande et wifi haut débit pour vos déplacements pro.",
   "off.o3.k":"Séjour","off.o3.t":"Petit-déjeuner inclus","off.o3.d":"Réservez en direct et profitez du buffet maison servi sous les voûtes, inclus dans votre tarif.",
   "foot.tagline":"Hôtel 3 étoiles entièrement rénové, au cœur du 12<sup>e</sup> arrondissement de Paris.",
+  "foot.legal":"Mentions légales","foot.privacy":"Confidentialité","foot.cookies":"Cookies","foot.cgv":"CGV",
   "foot.contactLabel":"Contact","foot.linksLabel":"Informations","foot.bk":"Petit-déjeuner",
   "foot.rights":"© 2026 Hôtel 26 Faubourg — Tous droits réservés.","foot.made":"Site officiel · Meilleur tarif garanti",
   "promo.txt":"Site officiel • Meilleur tarif garanti • Réservation en direct",
@@ -878,6 +883,7 @@ const I18N = {
   "off.o2.k":"Business","off.o2.t":"Business rate","off.o2.d":"5 minutes from Gare de Lyon: express checkout, invoice on request and fast wifi for work trips.",
   "off.o3.k":"Stay","off.o3.t":"Breakfast included","off.o3.d":"Book direct and enjoy the homemade buffet served under the vaults, included in your rate.",
   "foot.tagline":"A fully renovated 3-star hotel in the heart of the 12th arrondissement of Paris.",
+  "foot.legal":"Legal notice","foot.privacy":"Privacy","foot.cookies":"Cookies","foot.cgv":"Terms",
   "foot.contactLabel":"Contact","foot.linksLabel":"Information","foot.bk":"Breakfast",
   "foot.rights":"© 2026 Hôtel 26 Faubourg — All rights reserved.","foot.made":"Official site · Best rate guaranteed",
   "promo.txt":"Official site • Best rate guaranteed • Direct booking",
@@ -910,7 +916,8 @@ Object.assign(I18N.en,{"mbk.t1":"Official site","mbk.t2":"Best rate guaranteed",
 (function applyConfig(){
   var f=I18N.fr, e=I18N.en, C=CONFIG;
   f["promo.txt"]=C.promo.fr;        e["promo.txt"]=C.promo.en;
-  f["hero.priceNum"]=C.priceFrom.fr; e["hero.priceNum"]=C.priceFrom.en;
+  // Prix du hero supprimé (les tarifs viennent du bon plan et du moteur Misterbooking)
+  // f["hero.priceNum"]=C.priceFrom.fr; e["hero.priceNum"]=C.priceFrom.en;
   // Prix par chambre désactivés (yield : les tarifs viennent du moteur Misterbooking en temps réel)
   // var rk={single:"rooms.single.price",twin:"rooms.twin.price",double:"rooms.feature.price",superior:"rooms.sup.price",family:"rooms.fam.price"};
   // Object.keys(rk).forEach(function(k){ if(C.rooms[k]){ f[rk[k]]=C.rooms[k].fr; e[rk[k]]=C.rooms[k].en; } });
