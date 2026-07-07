@@ -57,6 +57,38 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!-- ═══════════════════════════════════════════════
+     ANALYTICS — à ne pas supprimer
+     ═══════════════════════════════════════════════ -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('consent', 'default', {'analytics_storage': 'denied'});
+  gtag('config', 'G-H1P0VFZGGH');
+  function acceptCookies(){
+    gtag('consent','update',{'analytics_storage':'granted'});
+    document.getElementById('cookie-banner').style.display='none';
+    localStorage.setItem('cookie_consent','granted');
+  }
+  function refuseCookies(){
+    document.getElementById('cookie-banner').style.display='none';
+    localStorage.setItem('cookie_consent','denied');
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    var c = localStorage.getItem('cookie_consent');
+    if(c==='granted'){ gtag('consent','update',{'analytics_storage':'granted'}); }
+    if(!c){ var b=document.getElementById('cookie-banner'); if(b) b.style.display='flex'; }
+  });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H1P0VFZGGH"></script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window,document,"clarity","script","xiy11s44ym");
+</script>
 <style>
   :root{
     --ink:#1A1613; --ink-2:#2A2420; --ink-soft:#5B524A;
@@ -423,6 +455,13 @@
 </style>
 </head>
 <body>
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;color:#fff;padding:16px 20px;z-index:9999;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;">
+  <span style="flex:1;min-width:200px;">Nous utilisons des cookies de mesure d'audience pour améliorer votre expérience.</span>
+  <span style="display:flex;gap:10px;">
+    <button onclick="refuseCookies()" style="background:transparent;border:1px solid #666;color:#fff;padding:8px 18px;border-radius:6px;cursor:pointer;">Refuser</button>
+    <button onclick="acceptCookies()" style="background:#c9a54e;border:none;color:#1a1a1a;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:600;">Accepter</button>
+  </span>
+</div>
 
 <header id="hd">
   <div class="promo"><div class="wrap"><span class="dot"></span><span data-i18n="promo.txt">Site officiel • Meilleur tarif garanti • Réservation en direct</span></div></div>
