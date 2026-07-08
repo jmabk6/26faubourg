@@ -1076,8 +1076,8 @@ try {
       el.dataset.bpDetailEn = d.detail_en || d.detail || "";
       el.dataset.bpPrixFr   = d.prix     || "";
       el.dataset.bpPrixEn   = d.prix_en  || d.prix || "";
-      el.dataset.bpLienFr = d.lien || "";
-      el.dataset.bpLienEn = d.lien ? d.lien.replace("langue=francais", "langue=anglais") : "";
+      el.dataset.bpLienFr = d.lienFr || d.lien || "";
+      el.dataset.bpLienEn = d.lienEn || d.lienFr || d.lien || "";
       var lg = document.documentElement.lang === "en" ? "en" : "fr";
       document.getElementById("bp-titre").textContent  = lg === "en" ? el.dataset.bpTitreEn  : el.dataset.bpTitreFr;
       document.getElementById("bp-detail").textContent = lg === "en" ? el.dataset.bpDetailEn : el.dataset.bpDetailFr;
