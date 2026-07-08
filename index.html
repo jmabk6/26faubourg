@@ -988,6 +988,14 @@ function setLang(lang){
   BOOK_IDS.forEach(id=>{const e=document.getElementById(id); if(e) e.href=url;});
   try{localStorage.setItem("lang26",lang);}catch(e){}
   try{var u=new URL(location.href);if(lang==="en")u.searchParams.set("lang","en");else u.searchParams.delete("lang");history.replaceState(null,"",u.pathname+u.search);}catch(e){}
+  if(typeof window.renderBonplan==="function") window.renderBonplan();
+}
+window.renderBonplan=function(){
+  var bp=window._bonplanData; if(!bp) return;
+  var lang=document.documentElement.lang==="en"?"en":"fr";
+  document.getElementById("bp-titre").textContent  = lang==="en" ? bp.titre_en  : bp.titre_fr;
+  document.getElementById("bp-detail").textContent = lang==="en" ? bp.detail_en : bp.detail_fr;
+  document.getElementById("bp-prix").textContent   = lang==="en" ? bp.prix_en   : bp.prix_fr;
 }
 (function(){let l="fr";try{const p=new URLSearchParams(location.search).get("lang");l=p||localStorage.getItem("lang26")||(navigator.language||"").slice(0,2);}catch(e){}setLang(I18N[l]?l:"fr");})();
 
@@ -1062,14 +1070,19 @@ try {
     const d = snap.data();
     const el = document.getElementById("bonplan");
     if (d.actif && d.titre && el) {
-      document.getElementById("bp-titre").textContent = d.titre || "";
-      document.getElementById("bp-detail").textContent = d.detail || "";
-      document.getElementById("bp-prix").textContent = d.prix || "";
+      window._bonplanData = {
+        titre_fr:  d.titre    || "",
+        titre_en:  d.titre_en || d.titre || "",
+        detail_fr: d.detail    || "",
+        detail_en: d.detail_en || d.detail || "",
+        prix_fr:   d.prix    || "",
+        prix_en:   d.prix_en || d.prix || ""
+      };
       if (d.lien) el.setAttribute("href", d.lien);
       el.hidden = false;
-      // Le bon plan remplace la factbar : on masque la factbar quand il est actif
       var fb = document.getElementById("factbar");
       if (fb) fb.style.display = "none";
+      if (typeof window.renderBonplan === "function") window.renderBonplan();
     }
   }
 } catch(e) { /* si Firestore indisponible, on n'affiche simplement pas le bandeau */ }

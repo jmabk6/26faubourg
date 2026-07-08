@@ -99,12 +99,18 @@
 
       <label>Titre</label>
       <input type="text" id="titre" placeholder="Nuit du vendredi 11 juillet" maxlength="60">
+      <label>Titre (EN)</label>
+      <input type="text" id="titre_en" placeholder="Friday night, July 11th" maxlength="60">
 
       <label>Détail</label>
       <input type="text" id="detail" placeholder="Chambre Double · petit-déjeuner offert" maxlength="80">
+      <label>Détail (EN)</label>
+      <input type="text" id="detail_en" placeholder="Double Room · breakfast included" maxlength="80">
 
       <label>Prix affiché</label>
       <input type="text" id="prix" placeholder="119 €" maxlength="20">
+      <label>Prix affiché (EN)</label>
+      <input type="text" id="prix_en" placeholder="€119" maxlength="20">
     </div>
 
     <div class="card">
@@ -242,8 +248,11 @@ async function loadCurrent(){
       const d = snap.data();
       $("actif").checked = !!d.actif;
       $("titre").value = d.titre||"";
+      $("titre_en").value = d.titre_en||"";
       $("detail").value = d.detail||"";
+      $("detail_en").value = d.detail_en||"";
       $("prix").value = d.prix||"";
+      $("prix_en").value = d.prix_en||"";
       $("dateArr").value = d.dateArr||"";
       $("nbNuit").value = d.nbNuit||1;
       $("chambre").value = d.chambre||"";
@@ -258,8 +267,11 @@ $("saveBtn").onclick = async () => {
   const data = {
     actif: $("actif").checked,
     titre: $("titre").value.trim(),
+    titre_en: $("titre_en").value.trim(),
     detail: $("detail").value.trim(),
+    detail_en: $("detail_en").value.trim(),
     prix: $("prix").value.trim(),
+    prix_en: $("prix_en").value.trim(),
     dateArr: $("dateArr").value,
     nbNuit: parseInt($("nbNuit").value)||1,
     chambre: $("chambre").value,
