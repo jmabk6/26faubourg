@@ -994,7 +994,6 @@ function setLang(lang){
     document.getElementById("bp-titre").textContent  =_bpLg==="en"?_bpEl.dataset.bpTitreEn :_bpEl.dataset.bpTitreFr;
     document.getElementById("bp-detail").textContent =_bpLg==="en"?_bpEl.dataset.bpDetailEn:_bpEl.dataset.bpDetailFr;
     document.getElementById("bp-prix").textContent   =_bpLg==="en"?_bpEl.dataset.bpPrixEn  :_bpEl.dataset.bpPrixFr;
-    if(_bpEl.dataset.bpLienBase) _bpEl.setAttribute("href",_bpEl.dataset.bpLienBase+"&langue=francais");
   }
 }
 (function(){let l="fr";try{const p=new URLSearchParams(location.search).get("lang");l=p||localStorage.getItem("lang26")||(navigator.language||"").slice(0,2);}catch(e){}setLang(I18N[l]?l:"fr");})();
@@ -1076,12 +1075,11 @@ try {
       el.dataset.bpDetailEn = d.detail_en || d.detail || "";
       el.dataset.bpPrixFr   = d.prix     || "";
       el.dataset.bpPrixEn   = d.prix_en  || d.prix || "";
-      el.dataset.bpLienBase = d.lienBase || (d.lien||"").replace(/&?langue=[^&]*/,"");
       var lg = document.documentElement.lang === "en" ? "en" : "fr";
       document.getElementById("bp-titre").textContent  = lg === "en" ? el.dataset.bpTitreEn  : el.dataset.bpTitreFr;
       document.getElementById("bp-detail").textContent = lg === "en" ? el.dataset.bpDetailEn : el.dataset.bpDetailFr;
       document.getElementById("bp-prix").textContent   = lg === "en" ? el.dataset.bpPrixEn   : el.dataset.bpPrixFr;
-      el.setAttribute("href", el.dataset.bpLienBase ? el.dataset.bpLienBase + "&langue=francais" : "#");
+      if (d.lien) el.setAttribute("href", d.lien);
       el.hidden = false;
       var fb = document.getElementById("factbar");
       if (fb) fb.style.display = "none";
