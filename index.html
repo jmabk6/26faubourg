@@ -1079,7 +1079,8 @@ try {
       document.getElementById("bp-titre").textContent  = lg === "en" ? el.dataset.bpTitreEn  : el.dataset.bpTitreFr;
       document.getElementById("bp-detail").textContent = lg === "en" ? el.dataset.bpDetailEn : el.dataset.bpDetailFr;
       document.getElementById("bp-prix").textContent   = lg === "en" ? el.dataset.bpPrixEn   : el.dataset.bpPrixFr;
-      if (d.lien) el.setAttribute("href", d.lien);
+      var _lien = d.lien || d.lienFr || d.lienBase || "";
+      if (_lien) el.setAttribute("href", _lien);
       el.hidden = false;
       var fb = document.getElementById("factbar");
       if (fb) fb.style.display = "none";
