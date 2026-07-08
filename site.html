@@ -994,6 +994,8 @@ function setLang(lang){
     document.getElementById("bp-titre").textContent  =_bpLg==="en"?_bpEl.dataset.bpTitreEn :_bpEl.dataset.bpTitreFr;
     document.getElementById("bp-detail").textContent =_bpLg==="en"?_bpEl.dataset.bpDetailEn:_bpEl.dataset.bpDetailFr;
     document.getElementById("bp-prix").textContent   =_bpLg==="en"?_bpEl.dataset.bpPrixEn  :_bpEl.dataset.bpPrixFr;
+    var _bpHref=_bpLg==="en"?_bpEl.dataset.bpLienEn:_bpEl.dataset.bpLienFr;
+    if(_bpHref) _bpEl.setAttribute("href",_bpHref);
   }
 }
 (function(){let l="fr";try{const p=new URLSearchParams(location.search).get("lang");l=p||localStorage.getItem("lang26")||(navigator.language||"").slice(0,2);}catch(e){}setLang(I18N[l]?l:"fr");})();
@@ -1079,8 +1081,11 @@ try {
       document.getElementById("bp-titre").textContent  = lg === "en" ? el.dataset.bpTitreEn  : el.dataset.bpTitreFr;
       document.getElementById("bp-detail").textContent = lg === "en" ? el.dataset.bpDetailEn : el.dataset.bpDetailFr;
       document.getElementById("bp-prix").textContent   = lg === "en" ? el.dataset.bpPrixEn   : el.dataset.bpPrixFr;
-      var _lien = d.lien || d.lienFr || d.lienBase || "";
-      if (_lien) el.setAttribute("href", _lien);
+      var _rawLien = d.lien || d.lienFr || d.lienBase || "";
+      el.dataset.bpLienFr = _rawLien.includes("langue=") ? _rawLien.replace(/langue=[^&]*/,"langue=francais") : (_rawLien ? _rawLien+"&langue=francais" : "");
+      el.dataset.bpLienEn = _rawLien.includes("langue=") ? _rawLien.replace(/langue=[^&]*/,"langue=anglais")  : (_rawLien ? _rawLien+"&langue=anglais"  : "");
+      var _href = lg==="en" ? el.dataset.bpLienEn : el.dataset.bpLienFr;
+      if (_href) el.setAttribute("href", _href);
       el.hidden = false;
       var fb = document.getElementById("factbar");
       if (fb) fb.style.display = "none";
