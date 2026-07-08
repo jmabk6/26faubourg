@@ -172,8 +172,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const DOCREF = doc(db, "site", "bonplan");
-const BASE_FR = "https://www.secure-direct-hotel-booking.com/module_booking_engine/index.php?id_etab=1dd7536e356c16b3d1fe805c1e10ee9c&langue=francais";
-const BASE_EN = "https://www.secure-direct-hotel-booking.com/module_booking_engine/index.php?id_etab=1dd7536e356c16b3d1fe805c1e10ee9c&langue=anglais";
+const BASE = "https://www.secure-direct-hotel-booking.com/module_booking_engine/index.php?id_etab=1dd7536e356c16b3d1fe805c1e10ee9c";
 
 const $ = id => document.getElementById(id);
 
@@ -204,12 +203,12 @@ onAuthStateChanged(auth, async user => {
 });
 
 // ---- construire le lien Misterbooking ----
-function buildLink(base){
+function buildLink(){
   const d = $("dateArr").value; // YYYY-MM-DD
   if(!d) return "";
   const [y,m,j] = d.split("-");
   const dateFr = `${j}/${m}/${y}`;
-  let url = `${base}&date_deb=${dateFr}&nb_nuit=${$("nbNuit").value||1}`;
+  let url = `${BASE}&date_deb=${dateFr}&nb_nuit=${$("nbNuit").value||1}`;
   if($("chambre").value) url += `&id_chambre_filtre=${$("chambre").value}`;
   return url;
 }
@@ -219,7 +218,7 @@ function refresh(){
   const actif = $("actif").checked;
   $("stateBadge").textContent = actif ? "Affiché" : "Masqué";
   $("stateBadge").className = "state " + (actif ? "on" : "off");
-  const link = buildLink(BASE_FR);
+  const link = buildLink();
   $("linkPreview").style.display = link ? "block" : "none";
   $("linkPreview").textContent = link;
 
@@ -276,8 +275,7 @@ $("saveBtn").onclick = async () => {
     dateArr: $("dateArr").value,
     nbNuit: parseInt($("nbNuit").value)||1,
     chambre: $("chambre").value,
-    lienFr: buildLink(BASE_FR),
-    lienEn: buildLink(BASE_EN),
+    lienBase: buildLink(),
     maj: new Date().toISOString()
   };
   try{
