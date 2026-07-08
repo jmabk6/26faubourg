@@ -970,7 +970,7 @@ Object.assign(I18N.en,{"mbk.t1":"Official site","mbk.t2":"Best rate guaranteed",
 })();
 const BOOK_URL=CONFIG.booking.url;
 const BOOK_LANG={fr:CONFIG.booking.langFr,en:CONFIG.booking.langEn};
-const BOOK_IDS=["book-top","book-hero","book-o1","book-o2","book-o3","book-foot","book-why","book-cta","book-mobile","book-herom"];
+const BOOK_IDS=["book-top","book-o1","book-o2","book-o3","book-foot","book-why","book-cta","book-herom"];
 function setLang(lang){
   const dict=I18N[lang]; if(!dict) return;
   document.querySelectorAll("[data-i18n]").forEach(el=>{
@@ -994,11 +994,34 @@ function setLang(lang){
     document.getElementById("bp-titre").textContent  =_bpLg==="en"?_bpEl.dataset.bpTitreEn :_bpEl.dataset.bpTitreFr;
     document.getElementById("bp-detail").textContent =_bpLg==="en"?_bpEl.dataset.bpDetailEn:_bpEl.dataset.bpDetailFr;
     document.getElementById("bp-prix").textContent   =_bpLg==="en"?_bpEl.dataset.bpPrixEn  :_bpEl.dataset.bpPrixFr;
-    var _bpHref=_bpLg==="en"?_bpEl.dataset.bpLienEn:_bpEl.dataset.bpLienFr;
+    var _bpHref=_bpEl.dataset.bpHref;
     if(_bpHref) _bpEl.setAttribute("href",_bpHref);
   }
 }
 (function(){let l="fr";try{const p=new URLSearchParams(location.search).get("lang");l=p||localStorage.getItem("lang26")||(navigator.language||"").slice(0,2);}catch(e){}setLang(I18N[l]?l:"fr");})();
+
+// widget "Vérifier les disponibilités" — construit l'URL avec les dates saisies
+(function(){
+  function toFrDate(iso){var p=iso.split("-");return p[2]+"/"+p[1]+"/"+p[0];}
+  function buildWidgetUrl(arrId,depId){
+    var arr=document.getElementById(arrId),dep=document.getElementById(depId);
+    if(!arr||!dep||!arr.value||!dep.value) return BOOK_URL+"&langue=francais";
+    var a=new Date(arr.value),d=new Date(dep.value);
+    var nuits=Math.round((d-a)/864e5);
+    if(nuits<1) nuits=1;
+    return BOOK_URL+"&langue=francais&date_deb="+toFrDate(arr.value)+"&nb_nuit="+nuits;
+  }
+  ["book-hero","book-mobile"].forEach(function(id){
+    var btn=document.getElementById(id);
+    if(!btn) return;
+    btn.addEventListener("click",function(e){
+      e.preventDefault();
+      var arrId=id==="book-mobile"?"mw-arr":"w-arr";
+      var depId=id==="book-mobile"?"mw-dep":"w-dep";
+      window.open(buildWidgetUrl(arrId,depId),"_blank","noopener");
+    });
+  });
+})();
 
 // header scrolled state
 const hd=document.getElementById("hd");
@@ -1082,9 +1105,8 @@ try {
       document.getElementById("bp-detail").textContent = lg === "en" ? el.dataset.bpDetailEn : el.dataset.bpDetailFr;
       document.getElementById("bp-prix").textContent   = lg === "en" ? el.dataset.bpPrixEn   : el.dataset.bpPrixFr;
       var _rawLien = d.lien || d.lienFr || d.lienBase || "";
-      el.dataset.bpLienFr = _rawLien.includes("langue=") ? _rawLien.replace(/langue=[^&]*/,"langue=francais") : (_rawLien ? _rawLien+"&langue=francais" : "");
-      el.dataset.bpLienEn = _rawLien.includes("langue=") ? _rawLien.replace(/langue=[^&]*/,"langue=anglais")  : (_rawLien ? _rawLien+"&langue=anglais"  : "");
-      var _href = lg==="en" ? el.dataset.bpLienEn : el.dataset.bpLienFr;
+      var _href = _rawLien.includes("langue=") ? _rawLien.replace(/langue=[^&]*/,"langue=francais") : (_rawLien ? _rawLien+"&langue=francais" : "");
+      el.dataset.bpHref = _href;
       if (_href) el.setAttribute("href", _href);
       el.hidden = false;
       var fb = document.getElementById("factbar");
